@@ -1,15 +1,16 @@
 #include <cstdio>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <functional>
 
 #include <GL/glut.h>
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
 #include <math.h>
 
 #include "data.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 #define DEV
 
@@ -27,13 +28,19 @@ public:     // need for camer parameters
     std::pair<vec2i, bool> mouseLeft{{0,0},false};
     std::pair<vec2i, bool> mouseMid{{0,0},false};
 
-    int windowWidth = 800, windowHeight = 800; 
+    int windowWidth = 1600, windowHeight = 1600; 
 
     bool use_light = false;
+    bool use_texture = true;
 private:    // data
     std::vector<vec3d> v;
     std::vector<vec2d> vt;
-    std::vector<vec3i> f;
+    std::vector<vec3d> vn;
+
+    std::vector<vec3i> f;    
+    std::vector<vec3i> ft;
+    std::vector<vec3i> fn;
+
     std::vector<vec3d> c;
 public:  
     View(){};
@@ -51,7 +58,9 @@ public:     // this functions
 
     void load(std::vector<vec3d> v_, std::vector<vec3i> f_);
     void load(std::function<double(int,int)> fv, int nv, std::function<int(int,int)> ff, int nf); // generally works for most case.
-    void load(std::string filename,bool centerlized);
+    void load(std::string objname, std::string texturename,bool centerlized);
+
+    void load_texture(std::string img_path);
 
     void sceneReact();
     void keyReact(unsigned char key, int x, int y);
@@ -62,8 +71,6 @@ public:     // this functions
     void show(int argc, char **argv);
 };
 View* View::global_view = nullptr;
-
-
 
 //////// some useful functions
 void drawCube(double scalar){

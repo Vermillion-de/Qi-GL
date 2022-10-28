@@ -65,19 +65,62 @@ void View::load(std::function<double(int,int)> fv, int nv, std::function<int(int
     }
 }
 
-void View::load(std::string filename, bool centerlized=true){    // TODO: aware of the size...
-    std::ifstream file(filename);
-    char type;
-    double  x, y, z;
-    v.clear(), f.clear();
-    v.push_back({0,0,0});
-    while (file >> type >> x >> y >> z)
-    {   
-        if (type == 'f') {f.push_back({x,y,z});}
-        if (type == 'v') {v.push_back({x,y,z});}
+void View::load(std::string objfile_path, std::string texture_path="./data/test.obj", bool centerlized=true){    // TODO: aware of the size...
+    std::ifstream objfile(objfile_path);
+
+    std::function<std::vector<std::string>(std::string& s, char t)> split = [](std::string& s, char t){
+        std::vector<std::string> ret;
+        ret.push_back(std::string{});
+        if (s[0] != t)   ret.back().push_back(s[0]);
+        for (int i = 1; i < s.length(); i++) {
+            if (s[i] != t)  ret.back().push_back(s[i]);
+            else if (s[i] == t && s[i-1] != t)  ret.push_back(std::string{});
+        }
+        return ret;
+    };
+
+    std::string line;
+    while (std::getline(objfile, line))
+    {
+        std::vector<std::string> split_s = split(line, ' ');
+        if      (split_s[0] == "v") {
+            v.push_back({atof(split_s[1].c_str()),atof(split_s[2].c_str()),atof(split_s[3].c_str())});
+        }
+        else if (split_s[0] == "vt") {
+            vt.push_back({atof(split_s[1].c_str()),atof(split_s[2].c_str())});
+        }
+        else if (split_s[0] == "vn") {
+            vn.push_back({atof(split_s[1].c_str()),atof(split_s[2].c_str()),atof(split_s[3].c_str())});
+        } 
+        else if (split_s[0] == "f") {
+            if (split_s.size() != 4) std::cout << "Warning: not this(four vertex face)!!!" << std::endl;
+            std::vector<std::string> f1 = split(split_s[1],'/');
+            std::vector<std::string> f2 = split(split_s[2],'/');
+            std::vector<std::string> f3 = split(split_s[3],'/');
+            if(f1.size() >= 1) f.push_back({atoi(f1[0].c_str()),atoi(f2[0].c_str()),atoi(f3[0].c_str())});
+            if(f1.size() >= 2) ft.push_back({atoi(f1[1].c_str()),atoi(f2[1].c_str()),atoi(f3[1].c_str())});
+            if(f1.size() == 3) fn.push_back({atoi(f1[2].c_str()),atoi(f2[2].c_str()),atoi(f3[2].c_str())});
+        }
+        else{
+            std::cout << "Warning: load file" << objfile_path << " , meet something not included!" << std::endl;
+        }
     }
     
-    file.close();
+    objfile.close();
+
+    // normalize the face index
+    int min = 10;
+    for (vec3i& f_ : f) min = std::min<int>(std::min<int>(f_.a,f_.b), std::min<int>(f_.c,min));
+    for (vec3i& f_ : f) f_ = vec3i{f_.a-min,f_.b-min,f_.c-min};
+
+    min = 10;
+    for (vec3i& ft_ : ft) min = std::min<int>(std::min<int>(ft_.a,ft_.b), std::min<int>(ft_.c,min));
+    for (vec3i& ft_ : ft) ft_ = vec3i{ft_.a-min,ft_.b-min,ft_.c-min};
+
+    min = 10;
+    for (vec3i& fn_ : fn) min = std::min<int>(std::min<int>(fn_.a,fn_.b), std::min<int>(fn_.c,min));
+    for (vec3i& fn_ : fn) fn_ = vec3i{fn_.a-min,fn_.b-min,fn_.c-min};
+
     if (centerlized)
     {
         vec3d center{0,0,0};
@@ -90,18 +133,40 @@ void View::load(std::string filename, bool centerlized=true){    // TODO: aware 
             double temp = (v_-center).max();
             max = (max > temp ? max : temp);
         }
-        for (vec3d& v_ : v) { v_ = (v_-center)/max;}
+        for (vec3d& v_ : v)  v_ = (v_-center)/max;
+
 #ifdef DEV
+    std::cout << "=== ===Load from " << objfile_path << "=== ===" << std::endl; 
     std::cout << "v size : " << v.size() << std::endl;
+    std::cout << "vt size: " << vt.size() << std::endl;
+    std::cout << "vn size: " << vn.size() << std::endl;
     std::cout << "f size : " << f.size() << std::endl;
-    std::cout << "Center :" ;
-    center.print();
-    std::cout << std::endl;
-    std::cout << "max :" << max << std::endl;
+    std::cout << "ft size: " << ft.size() << std::endl;
+    std::cout << "fn size: " << fn.size() << std::endl;
+if(centerlized)     std::cout << "=== ===========(centeralized)=========== ===" << std::endl; 
+else                std::cout << "=== ==================================== ===" << std::endl; 
 #endif
-
     }
+}
 
+void View::load_texture(std::string img_path="./data/test.png"){
+    int t_w, t_h, t_channel;
+    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    unsigned char *data = stbi_load(img_path.c_str(), &t_w, &t_h, &t_channel, 0);
+    std::cout << "Height: " << t_h << ", width: " << t_w << ", nchannels: " << t_channel << std::endl;
+    unsigned int texture;
+    glGenTextures(1,&texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // 线形滤波
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // 线形滤波
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t_w, t_h, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    // GL_GENERATE_MIPMAP
+    stbi_image_free(data); 
+    glEnable(GL_TEXTURE_2D);
 }
 
 void View::sceneReact(){
@@ -123,6 +188,7 @@ void View::sceneReact(){
 
     if (use_light)
     {
+        glEnable(GL_COLOR_MATERIAL);
         glEnable(GL_LIGHTING);
 	    glEnable(GL_LIGHT0);
 	    GLfloat ambient[] = { .3f,.3f,.3f,1.f };
@@ -137,20 +203,31 @@ void View::sceneReact(){
 
     glColor3f(1.,1.,1.);
     glBegin(GL_TRIANGLES);
-        for (vec3i& fi : f)
+        for (int i = 0; i < f.size(); i++)
         {
+            vec3i fi = f[i];
+            vec3i ti = ft[i];
+
             vec3d fa = transform(v[fi.a]);
             vec3d fb = transform(v[fi.b]);
             vec3d fc = transform(v[fi.c]);
+
+            vec2d ta = vt[ti.a];
+            vec2d tb = vt[ti.b];
+            vec2d tc = vt[ti.c];
+
+            glTexCoord2d(ta.u, ta.v); 
             glVertex3f(fa.x, fa.y, fa.z);
+            glTexCoord2d(tb.u, tb.v); 
             glVertex3f(fb.x, fb.y, fb.z);
+            glTexCoord2d(tc.u, tc.v); 
             glVertex3f(fc.x, fc.y, fc.z);
         }
     glEnd();
 
     glColor3f(0,0,0);
 
-    // if(f.size() < 2000) 
+    if(f.size() < 2000) 
     glLineWidth(2);
     glBegin(GL_LINES);
 	    for (vec3i& fi : f)
@@ -166,6 +243,12 @@ void View::sceneReact(){
             glVertex3f(fa.x, fa.y, fa.z);
         }
     glEnd(); 
+
+    if (use_texture)
+    {
+        // TODO
+    }
+    
 
 #ifdef DEV
     drawCube(1);
@@ -273,9 +356,7 @@ void View::keyReact(unsigned char key, int x, int y){
 }
 
 void View::reshapeWindowReact(int w, int h){
-
     glViewport(0,0,w,h);
-
 }
 
 void View::show(int argc, char **argv){
@@ -295,8 +376,8 @@ void View::show(int argc, char **argv){
     glutKeyboardFunc(pressKey);         // recall for press keyboard
     glutMouseFunc(clickMouse);          // recall for click mouse
     glutMotionFunc(moveMouse);          //
-
-    // glutIdleFunc(renderScene);       // run display every possible
-
+    load_texture("./data/orge/diffuse.png");
+    // glutIdleFunc(renderScene);       //run display every possible
+    
     glutMainLoop();                     // enter GLUT event processing cycle
 }
