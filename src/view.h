@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 
+#include <GLFW/glfw3.h>
 #include <GL/glut.h>
 #include <math.h>
 
@@ -12,13 +13,15 @@
 
 class View
 {
-public:     
-    // camer at a sphere
+public:
+    GLFWwindow* window=NULL;     
+    // camera on a sphere
     double r = sqrt(3);
     int theta = 0, phi = 135;
     // mouse condition last time
     std::pair<vec2i, bool> mouseLeft{{0,0},false};
     std::pair<vec2i, bool> mouseMid{{0,0},false};
+    std::pair<vec2i, bool> mouseRight{{0,0},false};
     // window situation
     int windowWidth = 1200, windowHeight = 1200; 
 public:
@@ -28,20 +31,24 @@ private:    // data
 public:  
     View(){};
     ~View(){};
-public:     // static things
-    static View* global_view;   // a global example, for rendering this.
-    static void renderScene();
+public:     // static things to setup callbacks..
+    static View* global_view;   
     static void reshapeWindow(int w, int h);
-    static void pressKey(unsigned char key, int x, int y);
-    static void clickMouse(int button, int state, int x, int y);
-    static void moveMouse(int x, int y);
+    static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static void mouse_click_callback(GLFWwindow* window, int button, int action, int mods);
+    static void mouse_scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 public:     // this functions
-    void load(std::string objname, std::string texturename,bool centerlized);
-    void sceneReact();
-    void keyReact(unsigned char key, int x, int y);
-    void mouseClickReact(int button, int state, int x, int y);
-    void moveMouseReact(int x, int y);
-    void reshapeWindowReact(int w, int h);
+    void keyReact(unsigned char key);
+    void mouseClickReact(int button, int state);
+    void mouseScrollReact( double xoffset, double yoffset);
+
+    void moveMouseReact();
+    // void reshapeWindowReact(int w, int h);
+    
+    // void load(std::string obj_path, bool centerlize);
+    void load(std::string obj_path, std::string texture_path,bool centerlize);
+    void render();
     void show(int argc, char **argv);
 };
+
 View* View::global_view = nullptr;

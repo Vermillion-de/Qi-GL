@@ -41,6 +41,7 @@ public:
 public:
     vec2i(){};
     vec2i(int x_, int y_) : x(x_), y(y_){};
+    vec2i(double x_, double y_) : x(x_), y(y_){};
     ~vec2i(){};
     void print(){ std::cout << "(" << x << "," << y << ")";  }
 };
