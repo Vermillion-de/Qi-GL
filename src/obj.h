@@ -37,7 +37,10 @@ private:
     // transformation for visualization
     double scale = 1;
     vec3d delta{0,0,0};
-    std::function<vec3d(vec3d)> transform = [&](vec3d x){return x*scale + delta;};
+    double theta = 0, phi = 0;
+    std::function<vec3d(vec3d)> transform = [&](vec3d x){
+        return x*scale + delta;
+    };
     
     // visualization effect
     bool skeletal = true;
