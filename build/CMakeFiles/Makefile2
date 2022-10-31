@@ -112,8 +112,8 @@ src/imgui/clean: src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/clean
 # Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/main.dir/all: src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/all
 CMakeFiles/main.dir/all: src/CMakeFiles/QiView_LIB.dir/all
+CMakeFiles/main.dir/all: src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=11,12 "Built target main"
