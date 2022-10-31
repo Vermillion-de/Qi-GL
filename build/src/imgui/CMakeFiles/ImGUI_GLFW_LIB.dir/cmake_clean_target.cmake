@@ -1,0 +1,3 @@
+file(REMOVE_RECURSE
+  "libImGUI_GLFW_LIB.a"
+)
