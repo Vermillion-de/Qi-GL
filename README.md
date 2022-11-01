@@ -1,4 +1,4 @@
-## This is Qi's reimplementation of GLUT for visualization of 3d Datasets, our functions mainly about mimic( :) ).
+## This is Qi's reimplementation of GLFW for visualization of 3d Datasets, our functions mainly about mimic( :) ).
 ### currently we support functions like
 1. mouse/key move/rotate object(vim for rotate, wasd for move), scroll to max/minize 
 2. basic key bindings, e.g. esc->quit
