@@ -1,12 +1,15 @@
 #version 330 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec2 aTextureCoord;
 
-in vec3 vPosition;  // cpu传入的顶点坐标
-in vec2 tPosition   // cpu传入的纹理坐标
+uniform mat4 view;
+uniform float scale;
+uniform vec3  delta;
 
-out vec3 tPosition; // 向片元着色器传递纹理坐标
-
+out vec2 texCoord;
 void main()
 {
-    gl_Position = vec4(vPosition, 1.0); // 指定ndc坐标
-    tPosition = tPosition; // 这个颜色经过线性插值生成片元颜色
+    texCoord = aTextureCoord;
+    vec4 pos = vec4(scale*aPos+delta,1)+1;
+    gl_Position = view*pos;
 }

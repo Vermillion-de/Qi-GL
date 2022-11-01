@@ -38,24 +38,19 @@ void View::mouseClickReact(int button, int action){
     case GLFW_MOUSE_BUTTON_LEFT :
         // std::cout << "Pressed mouse left!" << std::endl;
         if (action == GLFW_PRESS && mouseLeft.second == false)  
-            mouseLeft = std::pair<vec2i, bool>{{mouse_x,mouse_y},true};
+            mouseLeft = std::pair<glm::ivec2, bool>{{mouse_x,mouse_y},true};
         else if (action == GLFW_RELEASE)
-            mouseLeft = std::pair<vec2i, bool>{{0,0},false};
+            mouseLeft = std::pair<glm::ivec2, bool>{{0,0},false};
         break;
     case GLFW_MOUSE_BUTTON_MIDDLE:
         // std::cout << "Pressed mouse mid!" << std::endl;
         if (action == GLFW_PRESS && mouseMid.second == false)  
-            mouseMid = std::pair<vec2i, bool>{{mouse_x,mouse_y},true};
+            mouseMid = std::pair<glm::ivec2, bool>{{mouse_x,mouse_y},true};
         else if (action == GLFW_RELEASE)
-            mouseMid = std::pair<vec2i, bool>{{0,0},false};
+            mouseMid = std::pair<glm::ivec2, bool>{{0,0},false};
         break;
     case GLFW_MOUSE_BUTTON_RIGHT:
         std::cout << "Pressed mouse Right!" << std::endl;
-        // if (action == GLFW_PRESS && mouseMid.second == false)  
-            // mouseMid = std::pair<vec2i, bool>{{mouse_x,mouse_y},true};
-        // else if (action == GLFW_RELEASE)
-            // mouseMid = std::pair<vec2i, bool>{{0,0},false};
-        // break;
     default: break;
     }
 }
@@ -110,25 +105,41 @@ void View::keyReact(unsigned char key){
 }
 
 void View::load(std::string obj_path, bool centerlize=true){    // TODO: aware of the size...
-   data.load_obj(obj_path, centerlize);
+   data.set_obj(obj_path, centerlize);
 }
 
 void View::load(std::string obj_path, std::string texture_path, bool centerlize=true){    // TODO: aware of the size...
-   data.load_obj(obj_path, centerlize);
-   data.load_texture(texture_path);
+   data.set_obj(obj_path, centerlize);
+   data.set_texture(texture_path);
 }
+
+void View::load(std::string obj_path, std::string vshader_path, std::string fshader_path, bool centerlize=true){
+    data.set_obj(obj_path, centerlize);
+    data.set_shader(vshader_path, fshader_path);
+}
+
+void View::load(std::string obj_path, std::string texture_path,  std::string vshader_path, std::string fshader_path, bool centerlize=true){
+    data.set_obj(obj_path, centerlize);
+    data.set_shader(vshader_path, fshader_path);
+    data.set_texture(texture_path);
+}
+
+
 
 void View::render(){    
     glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glLoadIdentity();
-    glOrtho(-dx,dx,-dy,dy,-dz,dz);
+    glLoadIdentity();    
     double Theta = theta/180.*M_PI, Phi = phi/180.*M_PI;
     double h = -r*cos(Phi), l = r*sin(Phi);
-    gluLookAt(l*cos(Theta),h,l*sin(Theta),  0.0,0.0,0.0,  -h*cos(Theta),l,-h*sin(Theta));
+    // gluLookAt(l*cos(Theta),h,l*sin(Theta),  0.0,0.0,0.0,  -h*cos(Theta),l,-h*sin(Theta));
+    glm::mat4x4 view = glm::lookAt(glm::vec3{l*cos(Theta),h,l*sin(Theta)}, glm::vec3{0,0,0}, glm::vec3{-h*cos(Theta),l,-h*sin(Theta)});
+    int view_ID = glGetUniformLocation(data.shader_ID, "view");
+    glUniformMatrix4fv(view_ID, 1, GL_FALSE, &view[0][0]);
     data.render();
+    glOrtho(-dx,dx,-dy,dy,-dz,dz);
 #ifdef DEV
     drawCube(1);
     drawAxis(1);
@@ -137,59 +148,6 @@ void View::render(){
 
 void error_callback(int error, const char* description){
     std::cout << "Error (" << error << ") : " << description << std::endl;
-}
-
-void View::imgui_init(){
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void) io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL2_Init();
-    // io.Fonts->AddFontFromFileTTF(ImGUI_QiConfig::Font.c_str(), 24.0f);
-    io.Fonts->AddFontFromFileTTF("/home/qi/Desktop/Qi-GL/src/imgui/DroidSans.ttf", 24.0f);
-}
-
-void View::imgui_render(){
-    ImGui_ImplOpenGL2_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-    // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
-    static int counter = 0;
-    ImGui::Begin("Camera Settings");                         
-    ImGui::Text("Refreshing %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-
-    ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-    ImGui::Checkbox("Another Window", &show_another_window);
-    
-    // ImGui::SliderFloat("x orth box", &dx, 0.0f, 10.0f);
-    // ImGui::SliderFloat("y orth box", &dy, 0.0f, 10.0f);
-    // ImGui::SliderFloat("z orth box", &dz, 0.0f, 10.0f);
-
-    ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-    if (ImGui::Button("Button")) counter++; ImGui::SameLine(); ImGui::Text("counter = %d", counter);
-    
-    ImGui::End();
-    // 3. Show another simple window.
-    if (show_another_window)
-    {
-        ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-        ImGui::Text("Hello from another window!");
-        if (ImGui::Button("Close Me"))
-            show_another_window = false;
-        ImGui::End();
-    }
-    // Rendering
-    ImGui::Render();
-    ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-}
-
-void View::imgui_end(){ // Cleanup
-    ImGui_ImplOpenGL2_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 }
 
 void View::glfw_init(){
@@ -205,21 +163,69 @@ void View::glfw_init(){
     glfwSetKeyCallback(window, key_callback);
     glfwSetMouseButtonCallback(window, mouse_click_callback);
     glfwSetScrollCallback(window, mouse_scroll_callback);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) { std::cout << "Failed to initialize GLAD!" << std::endl; exit(-1); }
+}
+
+void View::imgui_init(){
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void) io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init();
+    io.Fonts->AddFontFromFileTTF("/home/qi/Desktop/Qi-GL/src/imgui/DroidSans.ttf", 24.0f);
+}
+
+void View::imgui_render(){
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    static int counter = 0;
+
+    ImGui::Begin("Camera Settings");                         
+    ImGui::Text("Refreshing %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+    ImGui::Checkbox("Another Window", &show_another_window);
+    // ImGui::SliderFloat("x orth box", &dx, 0.0f, 10.0f);
+    ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+    if (ImGui::Button("Button")) counter++; ImGui::SameLine(); ImGui::Text("counter = %d", counter);
+    ImGui::End();
+
+    // 3. Show another simple window.
+    if (show_another_window)
+    {
+        ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+        ImGui::Text("Hello from another window!");
+        if (ImGui::Button("Close Me"))
+            show_another_window = false;
+        ImGui::End();
+    }
+
+    // Rendering
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void View::imgui_end(){ // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 }
 
 void View::show(int argc, char **argv){
     global_view = this;
     glfw_init();
     imgui_init();
-    while (!glfwWindowShouldClose(window))
-    {
+    data.init();
+    while (!glfwWindowShouldClose(window)){
         glfwPollEvents();
         this->moveMouseReact();
         this->reshapeWindowReact();
-
         this->render();
         imgui_render();
-
         glfwSwapBuffers(window);
     }
     imgui_end();

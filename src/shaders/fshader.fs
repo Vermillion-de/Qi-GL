@@ -1,11 +1,10 @@
 #version 330 core
+in vec2 texCoord;
+uniform sampler2D texture0;
 
-in vec3 vColorOut;  // 顶点着色器传递的颜色
-out vec4 fColor;    // 片元输出像素的颜色
-
-uniform sampler2D texture
+out vec4 FragColor;
 
 void main()
 {
-    fColor = vec4(vColorOut, 1.0);
+   FragColor = texture(texture0, texCoord);
 }

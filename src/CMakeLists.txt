@@ -13,10 +13,18 @@ find_package(glfw3 REQUIRED)
 message(STATUS "Found GLFW3 lib at ${GLFW_LIBRARY}")
 target_link_libraries(QiView_LIB glfw)
 
+## add library GLAD
+add_subdirectory("./glad")
+message(STATUS "Using GLAD in ./glad/")
+target_link_libraries(QiView_LIB GLAD_LIB)
+
 ## add imgui
 add_subdirectory("./imgui")
 target_link_libraries(QiView_LIB ImGUI_GLFW_LIB)
 
 ## add stb_image.h
+
+## add shaders
+add_subdirectory("./shaders")
 
 set(QiView_INCLUDE "view.h" "obj.h")

@@ -249,42 +249,26 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/local/include/GLFW/glfw3.h \
   /usr/include/GL/glu.h \
   /usr/include/GL/gl.h \
-  ../src/imgui/imgui_glfw.h \
-  ../src/imgui/imgui.h \
-  ../src/imgui/imconfig.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
-  /usr/include/assert.h \
-  ../src/imgui/imgui_impl_glfw.h \
-  ../src/imgui/imgui_impl_opengl2.h \
-  ../src/imgui/imgui_impl_opengl3.h \
-  ../src/obj.h \
-  /usr/include/c++/11/sstream \
-  /usr/include/c++/11/bits/sstream.tcc \
-  /usr/include/glm/glm.hpp \
-  /usr/include/glm/detail/_fixes.hpp \
+  /usr/include/glm/gtc/matrix_transform.hpp \
+  /usr/include/glm/mat4x4.hpp \
+  /usr/include/glm/ext/matrix_double4x4.hpp \
+  /usr/include/glm/detail/type_mat4x4.hpp \
+  /usr/include/glm/detail/type_vec4.hpp \
+  /usr/include/glm/detail/qualifier.hpp \
   /usr/include/glm/detail/setup.hpp \
   /usr/include/c++/11/cassert \
+  /usr/include/assert.h \
   /usr/include/c++/11/cstddef \
   /usr/include/glm/simd/platform.h \
-  /usr/include/c++/11/climits \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
-  /usr/include/limits.h \
-  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
-  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
-  /usr/include/linux/limits.h \
-  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
-  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
-  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
-  /usr/include/c++/11/cfloat \
-  /usr/include/glm/fwd.hpp \
-  /usr/include/glm/detail/qualifier.hpp \
+  /usr/include/glm/detail/type_vec4.inl \
+  /usr/include/glm/detail/compute_vector_relational.hpp \
+  /usr/include/glm/detail/type_mat4x4.inl \
+  /usr/include/glm/matrix.hpp \
   /usr/include/glm/detail/setup.hpp \
   /usr/include/glm/vec2.hpp \
   /usr/include/glm/ext/vector_bool2.hpp \
   /usr/include/glm/detail/type_vec2.hpp \
   /usr/include/glm/detail/type_vec2.inl \
-  /usr/include/glm/detail/compute_vector_relational.hpp \
   /usr/include/glm/ext/vector_bool2_precision.hpp \
   /usr/include/glm/ext/vector_float2.hpp \
   /usr/include/glm/ext/vector_float2_precision.hpp \
@@ -312,8 +296,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/glm/ext/vector_uint3_sized.hpp \
   /usr/include/glm/vec4.hpp \
   /usr/include/glm/ext/vector_bool4.hpp \
-  /usr/include/glm/detail/type_vec4.hpp \
-  /usr/include/glm/detail/type_vec4.inl \
   /usr/include/glm/ext/vector_bool4_precision.hpp \
   /usr/include/glm/ext/vector_float4.hpp \
   /usr/include/glm/ext/vector_float4_precision.hpp \
@@ -327,7 +309,9 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/glm/ext/matrix_double2x2.hpp \
   /usr/include/glm/detail/type_mat2x2.hpp \
   /usr/include/glm/detail/type_mat2x2.inl \
-  /usr/include/glm/matrix.hpp \
+  /usr/include/glm/ext/matrix_double2x2_precision.hpp \
+  /usr/include/glm/ext/matrix_float2x2.hpp \
+  /usr/include/glm/ext/matrix_float2x2_precision.hpp \
   /usr/include/glm/mat2x3.hpp \
   /usr/include/glm/ext/matrix_double2x3.hpp \
   /usr/include/glm/detail/type_mat2x3.hpp \
@@ -377,13 +361,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/glm/ext/matrix_double4x3_precision.hpp \
   /usr/include/glm/ext/matrix_float4x3.hpp \
   /usr/include/glm/ext/matrix_float4x3_precision.hpp \
-  /usr/include/glm/mat4x4.hpp \
-  /usr/include/glm/ext/matrix_double4x4.hpp \
-  /usr/include/glm/detail/type_mat4x4.hpp \
-  /usr/include/glm/detail/type_mat4x4.inl \
-  /usr/include/glm/ext/matrix_double4x4_precision.hpp \
-  /usr/include/glm/ext/matrix_float4x4.hpp \
-  /usr/include/glm/ext/matrix_float4x4_precision.hpp \
   /usr/include/glm/detail/func_matrix.inl \
   /usr/include/glm/geometric.hpp \
   /usr/include/glm/detail/func_geometric.inl \
@@ -395,13 +372,48 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/glm/detail/func_vector_relational.inl \
   /usr/include/glm/detail/_vectorize.hpp \
   /usr/include/glm/common.hpp \
+  /usr/include/glm/detail/_fixes.hpp \
   /usr/include/glm/detail/func_common.inl \
   /usr/include/glm/detail/compute_common.hpp \
-  /usr/include/glm/ext/matrix_double2x2_precision.hpp \
-  /usr/include/glm/ext/matrix_float2x2.hpp \
-  /usr/include/glm/ext/matrix_float2x2_precision.hpp \
+  /usr/include/glm/ext/matrix_double4x4_precision.hpp \
+  /usr/include/glm/ext/matrix_float4x4.hpp \
+  /usr/include/glm/ext/matrix_float4x4_precision.hpp \
+  /usr/include/glm/ext/matrix_projection.hpp \
+  /usr/include/glm/gtc/constants.hpp \
+  /usr/include/glm/ext/scalar_constants.hpp \
+  /usr/include/glm/ext/scalar_constants.inl \
+  /usr/include/glm/gtc/constants.inl \
   /usr/include/glm/trigonometric.hpp \
   /usr/include/glm/detail/func_trigonometric.inl \
+  /usr/include/glm/ext/matrix_projection.inl \
+  /usr/include/glm/ext/matrix_clip_space.hpp \
+  /usr/include/glm/ext/matrix_clip_space.inl \
+  /usr/include/glm/ext/matrix_transform.hpp \
+  /usr/include/glm/ext/matrix_transform.inl \
+  /usr/include/glm/gtc/matrix_transform.inl \
+  ../src/imgui/imgui_glfw.h \
+  ../src/imgui/imgui.h \
+  ../src/imgui/imconfig.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
+  ../src/imgui/imgui_impl_glfw.h \
+  ../src/imgui/imgui_impl_opengl2.h \
+  ../src/imgui/imgui_impl_opengl3.h \
+  ../src/obj.h \
+  /usr/include/c++/11/sstream \
+  /usr/include/c++/11/bits/sstream.tcc \
+  /usr/include/glm/glm.hpp \
+  /usr/include/c++/11/climits \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+  /usr/include/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+  /usr/include/linux/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+  /usr/include/c++/11/cfloat \
+  /usr/include/glm/fwd.hpp \
   /usr/include/glm/packing.hpp \
   /usr/include/glm/detail/func_packing.inl \
   /usr/include/glm/detail/type_half.hpp \
@@ -429,15 +441,45 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/glm/packing.hpp:
 
+/usr/include/glm/fwd.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
+
+/usr/include/glm/glm.hpp:
+
+/usr/include/c++/11/sstream:
+
+../src/obj.h:
+
+../src/imgui/imconfig.h:
+
+/usr/include/glm/ext/matrix_transform.hpp:
+
 /usr/include/glm/detail/func_trigonometric.inl:
 
 /usr/include/glm/trigonometric.hpp:
 
-/usr/include/glm/ext/matrix_float2x2.hpp:
+/usr/include/glm/ext/scalar_constants.inl:
 
-/usr/include/glm/ext/matrix_double2x2_precision.hpp:
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/glm/ext/scalar_constants.hpp:
+
+/usr/include/glm/gtc/constants.hpp:
+
+/usr/include/glm/ext/matrix_projection.hpp:
+
+/usr/include/glm/ext/matrix_float4x4_precision.hpp:
+
+/usr/include/glm/ext/matrix_float4x4.hpp:
+
+/usr/include/glm/ext/matrix_double4x4_precision.hpp:
 
 /usr/include/glm/detail/func_common.inl:
+
+/usr/include/glm/detail/_fixes.hpp:
 
 /usr/include/glm/detail/func_vector_relational.inl:
 
@@ -450,16 +492,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/geometric.hpp:
 
 /usr/include/glm/detail/func_matrix.inl:
-
-/usr/include/glm/ext/matrix_float4x4_precision.hpp:
-
-/usr/include/glm/ext/matrix_float4x4.hpp:
-
-/usr/include/glm/ext/matrix_double4x4_precision.hpp:
-
-/usr/include/glm/detail/type_mat4x4.inl:
-
-/usr/include/glm/mat4x4.hpp:
 
 /usr/include/glm/ext/matrix_float4x3.hpp:
 
@@ -489,11 +521,17 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/glm/ext/matrix_float3x3_precision.hpp:
 
+/usr/include/glm/ext/matrix_transform.inl:
+
 /usr/include/glm/ext/matrix_float3x3.hpp:
 
 /usr/include/glm/ext/matrix_double3x3_precision.hpp:
 
 /usr/include/glm/detail/type_mat3x3.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+
+/usr/include/glm/ext/matrix_double3x3.hpp:
 
 /usr/include/glm/ext/matrix_float3x2.hpp:
 
@@ -515,6 +553,10 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/glm/ext/matrix_float2x3.hpp:
 
+/usr/include/glm/ext/matrix_float2x2.hpp:
+
+/usr/include/glm/ext/matrix_double2x2_precision.hpp:
+
 /usr/include/glm/detail/type_mat2x2.inl:
 
 /usr/include/glm/detail/type_mat2x2.hpp:
@@ -522,6 +564,12 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/ext/matrix_double2x2.hpp:
 
 /usr/include/glm/mat2x2.hpp:
+
+../src/imgui/imgui.h:
+
+/usr/include/glm/detail/type_mat3x3.inl:
+
+/usr/include/glm/ext/vector_uint4_sized.hpp:
 
 /usr/include/glm/ext/vector_uint4.hpp:
 
@@ -561,57 +609,29 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/glm/ext/vector_float2.hpp:
 
-/usr/include/glm/detail/compute_vector_relational.hpp:
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+
+/usr/include/glm/detail/type_vec2.inl:
 
 /usr/include/glm/detail/type_mat2x3.inl:
 
 /usr/include/glm/detail/type_vec2.hpp:
 
-/usr/include/glm/fwd.hpp:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
 
-/usr/include/glm/detail/type_vec2.inl:
+/usr/include/glm/vec2.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+/usr/include/glm/detail/type_mat4x4.inl:
 
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
-
-/usr/include/glm/ext/matrix_double3x3.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
-
-/usr/include/glm/simd/platform.h:
-
-/usr/include/c++/11/cassert:
-
-/usr/include/glm/detail/setup.hpp:
-
-/usr/include/glm/detail/_fixes.hpp:
-
-/usr/include/glm/glm.hpp:
-
-/usr/include/c++/11/sstream:
+/usr/include/glm/detail/compute_vector_relational.hpp:
 
 /usr/include/pthread.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
 
-/usr/include/glm/detail/type_vec4.hpp:
-
-/usr/include/locale.h:
-
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
-
-/usr/include/glm/detail/type_mat2x3.hpp:
-
-/usr/include/glm/detail/qualifier.hpp:
-
-/usr/include/c++/11/bits/unordered_map.h:
 
 /usr/include/c++/11/clocale:
 
@@ -660,6 +680,10 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/mat3x2.hpp:
 
 /usr/include/wchar.h:
+
+/usr/include/locale.h:
+
+/usr/include/glm/detail/type_vec4.hpp:
 
 /usr/include/c++/11/bits/exception_ptr.h:
 
@@ -761,12 +785,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 ../main.cpp:
 
-/usr/include/glm/detail/type_mat4x4.hpp:
-
-/usr/include/c++/11/bits/exception_defines.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
-
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 
 /usr/include/GL/gl.h:
@@ -778,6 +796,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/bits/cpp_type_traits.h:
 
 /usr/include/c++/11/bits/stl_iterator_base_funcs.h:
+
+/usr/include/glm/gtc/constants.inl:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
@@ -807,6 +827,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/bits/basic_string.h:
 
+/usr/include/glm/ext/matrix_clip_space.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
@@ -834,10 +856,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/detail/compute_common.hpp:
 
 /usr/include/strings.h:
-
-/usr/include/glm/ext/matrix_double4x4.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 ../src/view.h:
 
@@ -879,9 +897,9 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
-/usr/include/glm/detail/type_mat3x4.inl:
-
 ../src/imgui/imgui_glfw.h:
+
+/usr/include/glm/detail/type_mat3x4.inl:
 
 /usr/include/c++/11/cstdlib:
 
@@ -905,9 +923,9 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
-/usr/include/glm/matrix.hpp:
-
 /usr/include/glm/ext/vector_bool3.hpp:
+
+/usr/include/glm/matrix.hpp:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
@@ -927,9 +945,9 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
-/usr/include/glm/detail/type_vec4.inl:
-
 ../src/imgui/imgui_impl_opengl2.h:
+
+/usr/include/glm/detail/type_vec4.inl:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
@@ -1004,12 +1022,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/stdc-predef.h:
 
 /usr/include/c++/11/bits/alloc_traits.h:
-
-/usr/include/glm/detail/type_mat3x3.inl:
-
-/usr/include/glm/ext/vector_uint4_sized.hpp:
-
-../src/imgui/imgui.h:
 
 /usr/include/glm/ext/scalar_int_sized.hpp:
 
@@ -1123,7 +1135,15 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/vector:
 
+/usr/include/glm/simd/platform.h:
+
+/usr/include/glm/gtc/matrix_transform.hpp:
+
 /usr/include/c++/11/bits/stl_uninitialized.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/usr/include/glm/ext/matrix_double4x4.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
@@ -1163,6 +1183,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
+/usr/include/c++/11/cassert:
+
 /usr/include/glm/ext/vector_uint3_sized.hpp:
 
 /usr/include/c++/11/bits/algorithmfwd.h:
@@ -1176,6 +1198,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
 /usr/include/math.h:
+
+/usr/include/glm/mat4x4.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
@@ -1221,16 +1245,28 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 ../src/glad/glad.h:
 
+/usr/include/glm/ext/matrix_projection.inl:
+
 /usr/include/inttypes.h:
 
 /usr/include/c++/11/bits/hashtable_policy.h:
 
 /usr/local/include/GLFW/glfw3.h:
 
-../src/imgui/imconfig.h:
+/usr/include/c++/11/bits/exception_defines.h:
 
-/usr/include/glm/vec2.hpp:
+/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
+/usr/include/glm/detail/type_mat4x4.hpp:
 
-../src/obj.h:
+/usr/include/glm/gtc/matrix_transform.inl:
+
+/usr/include/glm/detail/type_mat2x3.hpp:
+
+/usr/include/c++/11/bits/unordered_map.h:
+
+/usr/include/glm/detail/qualifier.hpp:
+
+/usr/include/glm/ext/matrix_clip_space.inl:
+
+/usr/include/glm/detail/setup.hpp:

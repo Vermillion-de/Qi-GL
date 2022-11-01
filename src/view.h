@@ -5,12 +5,12 @@
 #include <functional>
 #include <math.h>
 
-// #include "glad/glad.h"
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <GL/glu.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "./imgui/imgui_glfw.h"
-#include "data.h"
 #include "obj.h"
 
 class View
@@ -19,9 +19,9 @@ public: // window situation
     GLFWwindow* window=NULL;   
     int windowWidth=1200, windowHeight=1200;   
     // mouse condition last time
-    std::pair<vec2i, bool> mouseLeft{{0,0},false};
-    std::pair<vec2i, bool> mouseMid{{0,0},false};
-    std::pair<vec2i, bool> mouseRight{{0,0},false};
+    std::pair<glm::ivec2, bool> mouseLeft{{0,0},false};
+    std::pair<glm::ivec2, bool> mouseMid{{0,0},false};
+    std::pair<glm::ivec2, bool> mouseRight{{0,0},false};
     double mouse_x=0, mouse_y=0;
 public: //glfw settings
     void glfw_init();
@@ -56,7 +56,9 @@ public:     // react of this functions
     // void reshapeWindowReact(int w, int h);  
     // void load(std::string obj_path, bool centerlize);
     void load(std::string obj_path, bool centerlize);
-    void load(std::string obj_path, std::string texture_path,bool centerlize);
+    void load(std::string obj_path, std::string texture_path, bool centerlize);
+    void load(std::string obj_path, std::string vshader_path, std::string fshader_path, bool centerlize);
+    void load(std::string obj_path, std::string texture_path, std::string vshader_path, std::string fshader_path, bool centerlize);
     void render();
     void show(int argc, char **argv);
 };

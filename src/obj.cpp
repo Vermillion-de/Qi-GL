@@ -1,20 +1,17 @@
 // #pragma once
 #include "obj.h"
 
-Obj::Obj(std::string obj_path,std::string name_=" ", bool centerlize=true) : name(name_) { load_obj(obj_path,centerlize); }
- 
-Obj::Obj(std::string obj_path, std::string texture_path, std::string name_=" ", bool centerlize=true) : name(name_) {
-    load_obj(obj_path,centerlize);
-    load_texture(texture_path);
-    this->texture_path = texture_path;
+void Obj::init(){
+    init_obj();
+    if (use_texture) init_texture();
+    if (use_shader) { 
+        std::cout << "Core shading!!!" << std::endl;
+        init_shader(); 
+        core_bind(); 
+    }
 }
 
-void Obj::clear_obj_data(){
-    v.clear(); vt.clear(); vn.clear();
-    f.clear(); ft.clear(); fn.clear();
-}
-
-void Obj::load_obj(std::string obj_path, bool centerlize){
+void Obj::init_obj(){
     std::ifstream objfile(obj_path);
 
     // split a string according to "t"
@@ -30,7 +27,6 @@ void Obj::load_obj(std::string obj_path, bool centerlize){
     };
 
     // read the Obj file
-    clear_obj_data();
     std::string line;
     while (std::getline(objfile, line))
     {
@@ -96,20 +92,73 @@ void Obj::load_obj(std::string obj_path, bool centerlize){
 #endif
 };
 
-void Obj::load_texture(std::string texture_path){
-    if (pixels != NULL) stbi_image_free(pixels);
-    this->texture_path = texture_path; 
+void Obj::init_texture(){
+    int t_w, t_h, t_channel;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    pixels = stbi_load(texture_path.c_str(), &t_w, &t_h, &t_channel, 0); 
-    if (pixels==NULL) { use_texture = false; std::cout << name << " load texture failed!";}
-    else use_texture = true;
+    unsigned char *pixels = stbi_load(texture_path.c_str(), &t_w, &t_h, &t_channel, 0); 
+    if (pixels==NULL) { use_texture = false; std::cout << " load texture " << texture_path  <<  " failed!"; return; }
+    glGenTextures(1, &texture_ID);
+    glBindTexture(GL_TEXTURE_2D, texture_ID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t_w, t_h, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+    stbi_image_free(pixels);
 #ifdef DEV
-    std::cout << "Image \"" <<  texture_path << "\" size : (h,w,c) = (" << t_h << ", " << t_w << "," << t_channel << ")." << std::endl;
+    std::cout << "Load texture \"" <<  texture_path << "\" size : (h,w,c) = (" << t_h << ", " << t_w << "," << t_channel << "). to ID: " << texture_ID << "." << std::endl;
 #endif
 }
 
-void Obj::setup_texture(){
-    if(texture_ID == -1) glGenTextures(1,&texture_ID);
+void Obj::init_shader(){
+    // read shaders
+    std::ifstream vshader_file(vshader_path);
+    std::ifstream fshader_file(fshader_path);
+    std::stringstream vshader_code, fshader_code;
+
+    vshader_code << vshader_file.rdbuf();
+    fshader_code << fshader_file.rdbuf();
+
+    vshader_file.close();
+    fshader_file.close();
+    
+    std::string vs_temp = vshader_code.str();
+    std::string fs_temp = fshader_code.str();
+    const char* vshader_source = vs_temp.c_str();
+    const char* fshader_source = fs_temp.c_str();
+    
+    std::function<void(unsigned int, GLenum)> checkProgram = [](unsigned int Program_ID, GLenum flag){
+        int success;
+        glGetShaderiv(Program_ID, flag, &success);
+        if (!success)
+        {
+            char infoLog[512];
+            glGetShaderInfoLog(Program_ID, 512, NULL, infoLog);
+            std::cout << "ERROR::SHADER::ID("<< Program_ID << ")::FLAG(" << flag << ")" << "::COMPILATION_FAILED\n" << infoLog << std::endl;
+        }
+    };
+
+    //compile them    
+    vshader_ID = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vshader_ID, 1, &vshader_source, NULL);
+    glCompileShader(vshader_ID);
+    checkProgram(vshader_ID, GL_COMPILE_STATUS);
+
+    fshader_ID = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fshader_ID, 1, &fshader_source, NULL);
+    glCompileShader(fshader_ID);
+    checkProgram(fshader_ID, GL_COMPILE_STATUS);
+
+    shader_ID = glCreateProgram();
+    glAttachShader(shader_ID, vshader_ID);
+    glAttachShader(shader_ID, fshader_ID);
+    glLinkProgram(shader_ID);
+    checkProgram(shader_ID, GL_LINK_STATUS);
+
+
+    std::cout << "vs ID: " << vshader_ID << std::endl;
+    std::cout << "fs ID: " << fshader_ID << std::endl;
+    std::cout << "s  ID: " << shader_ID  << std::endl;
+    // attach them
+}
+
+void Obj::texture_settings(){
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_ID);
     // set the texture wrapping parameters
@@ -118,14 +167,13 @@ void Obj::setup_texture(){
     // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // 线形滤波
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // 线形滤波
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t_w, t_h, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 }
 
 void Obj::legacy_render(){
-    if (use_texture)  setup_texture();
+    if (use_texture)  texture_settings();
     glColor3f(1.,1.,1.);
     glBegin(GL_TRIANGLES);
-    if (use_texture==true)
+    if (use_texture)
         for (int i = 0; i < f.size(); i++){
             glm::ivec3 ti = ft[i];          glm::ivec3 fi = f[i];
             glm::vec2 ta = vt[ti.x];        glm::vec3 fa = transform(v[fi.x]); 
@@ -135,7 +183,7 @@ void Obj::legacy_render(){
             glTexCoord2d(tb.x, tb.y);       glVertex3f(fb.x, fb.y, fb.z);
             glTexCoord2d(tc.x, tc.y);       glVertex3f(fc.x, fc.y, fc.z);
         }
-    else if(use_texture == false)
+    else 
         for (int i = 0; i < f.size(); i++){
             glm::ivec3 fi = f[i];
             glm::vec3 fa = transform(v[fi.x]);
@@ -167,13 +215,63 @@ void Obj::legacy_render(){
 }
 
 void Obj::render(){
-    // legacy_render();
+    if(use_shader) core_render();
+    else           legacy_render();
 }
 
 void Obj::core_bind(){
-    // glCreateBuffers();
+    // unsigned int VBO, VAO;
+    // glGenBuffers(1, &VBO);
+    // glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // float vertices[] = {
+    //      0.5f, -0.5f, 0.0f,  // bottom right
+    //     -0.5f, -0.5f, 0.0f,  // bottom left
+    //      0.0f,  0.5f, 0.0f   // top 
+    // };
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // glGenVertexArrays(1, &VAO);
+    // glBindVertexArray(VAO);
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // glEnableVertexAttribArray(0);
+
+    // glBindVertexArray(VAO);
+
+    float vbo[3*(3+2)*f.size()];
+
+    for (int i = 0; i < f.size(); i++)
+    {        
+        glm::vec3 va = v[f[i].x]; glm::vec2 ta = vt[ft[i].x];
+        glm::vec3 vb = v[f[i].y]; glm::vec2 tb = vt[ft[i].y];
+        glm::vec3 vc = v[f[i].z]; glm::vec2 tc = vt[ft[i].z]; 
+        vbo[i*3*(3+2)+ 0+0]=va.x, vbo[i*3*(3+2)+ 0+1]=va.y, vbo[i*3*(3+2)+ 0+2]=va.z; vbo[i*3*(3+2)+ 0+3]=ta.x; vbo[i*3*(3+2)+ 0+4]=ta.y; 
+        vbo[i*3*(3+2)+ 5+0]=vb.x, vbo[i*3*(3+2)+ 5+1]=vb.y, vbo[i*3*(3+2)+ 5+2]=vb.z; vbo[i*3*(3+2)+ 5+3]=tb.x; vbo[i*3*(3+2)+ 5+4]=tb.y; 
+        vbo[i*3*(3+2)+10+0]=vc.x, vbo[i*3*(3+2)+10+1]=vc.y, vbo[i*3*(3+2)+10+2]=vc.z; vbo[i*3*(3+2)+10+3]=tc.x; vbo[i*3*(3+2)+10+4]=tc.y; 
+    }
+
+    // TODO: get data
+    glGenBuffers(1, &vbo_ID);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_ID);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vbo), vbo, GL_STATIC_DRAW);
+
+    glGenVertexArrays(1, &vao_ID);
+    glBindVertexArray(vao_ID);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)(3*sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glBindVertexArray(vao_ID);
 };
 
 void Obj::core_render(){
-
+    glUseProgram(shader_ID);
+    if( use_texture ) texture_settings();
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_ID);
+    glBindVertexArray(vao_ID);
+    int scale_ID = glGetUniformLocation(shader_ID,"scale");
+    int delta_ID = glGetUniformLocation(shader_ID,"delta");
+    glUniform1f(scale_ID, scale);
+    glUniform3f(delta_ID, delta.x, delta.y, delta.z);
+    glDrawArrays(GL_TRIANGLES, 0, 3*f.size());
 };
