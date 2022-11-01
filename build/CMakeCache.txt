@@ -246,7 +246,7 @@ Qi-GL_IS_TOP_LEVEL:STATIC=ON
 Qi-GL_SOURCE_DIR:STATIC=/home/qi/Desktop/Qi-GL
 
 //Dependencies for the target
-QiView_LIB_LIB_DEPENDS:STATIC=general;OpenGL::GL;general;OpenGL::GLU;general;glfw;general;ImGUI_GLFW_LIB;
+QiView_LIB_LIB_DEPENDS:STATIC=general;OpenGL::GL;general;OpenGL::GLU;general;glfw;general;GLAD_LIB;general;ImGUI_GLFW_LIB;
 
 //The directory containing a CMake configuration file for glfw3.
 glfw3_DIR:PATH=/usr/local/lib/cmake/glfw3
@@ -362,7 +362,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

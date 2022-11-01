@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/qi/Desktop/Qi-GL/build/src/glad/CMakeFiles/GLAD_LIB.dir/DependInfo.cmake"
   "/home/qi/Desktop/Qi-GL/build/src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/DependInfo.cmake"
   )
 

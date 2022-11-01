@@ -256,8 +256,10 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/assert.h \
   ../src/imgui/imgui_impl_glfw.h \
   ../src/imgui/imgui_impl_opengl2.h \
-  ../src/data.h \
+  ../src/imgui/imgui_impl_opengl3.h \
   ../src/obj.h \
+  /usr/include/c++/11/sstream \
+  /usr/include/c++/11/bits/sstream.tcc \
   /usr/include/glm/glm.hpp \
   /usr/include/glm/detail/_fixes.hpp \
   /usr/include/glm/detail/setup.hpp \
@@ -591,6 +593,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/glm/glm.hpp:
 
+/usr/include/c++/11/sstream:
+
 /usr/include/pthread.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
@@ -614,6 +618,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/bits/ostream.tcc:
 
 /usr/include/c++/11/climits:
+
+/usr/include/c++/11/bits/sstream.tcc:
 
 /usr/include/c++/11/new:
 
@@ -814,6 +820,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
 /usr/include/c++/11/cfloat:
+
+../src/imgui/imgui_impl_opengl3.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
@@ -1099,6 +1107,10 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/usr/include/c++/11/bits/locale_facets.tcc:
+
 /usr/include/c++/11/istream:
 
 /usr/include/c++/11/bits/istream.tcc:
@@ -1220,11 +1232,5 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/vec2.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
-
-/usr/include/c++/11/bits/locale_facets.tcc:
-
-../src/data.h:
 
 ../src/obj.h:

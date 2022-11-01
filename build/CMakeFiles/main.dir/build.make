@@ -98,6 +98,7 @@ main: /usr/lib/x86_64-linux-gnu/libGL.so
 main: /usr/local/lib/libglfw3.a
 main: /usr/lib/x86_64-linux-gnu/librt.a
 main: /usr/lib/x86_64-linux-gnu/libm.so
+main: src/glad/libGLAD_LIB.a
 main: src/imgui/libImGUI_GLFW_LIB.a
 main: CMakeFiles/main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable main"

@@ -44,7 +44,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/home/qi/Desktop/Qi-GL/build/src/glad/cmake_install.cmake")
   include("/home/qi/Desktop/Qi-GL/build/src/imgui/cmake_install.cmake")
+  include("/home/qi/Desktop/Qi-GL/build/src/shaders/cmake_install.cmake")
 
 endif()
 

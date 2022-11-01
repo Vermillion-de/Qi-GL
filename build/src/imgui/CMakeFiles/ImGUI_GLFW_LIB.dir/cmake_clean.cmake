@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_glfw.cpp.o.d"
   "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl2.cpp.o"
   "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl2.cpp.o.d"
+  "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl3.cpp.o"
+  "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl3.cpp.o.d"
   "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_tables.cpp.o"
   "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_tables.cpp.o.d"
   "CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_widgets.cpp.o"

@@ -143,6 +143,19 @@ QiView_LIB/fast:
 .PHONY : QiView_LIB/fast
 
 #=============================================================================
+# Target rules for targets named GLAD_LIB
+
+# Build rule for target.
+GLAD_LIB: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GLAD_LIB
+.PHONY : GLAD_LIB
+
+# fast build rule for target.
+GLAD_LIB/fast:
+	$(MAKE) $(MAKESILENT) -f src/glad/CMakeFiles/GLAD_LIB.dir/build.make src/glad/CMakeFiles/GLAD_LIB.dir/build
+.PHONY : GLAD_LIB/fast
+
+#=============================================================================
 # Target rules for targets named ImGUI_GLFW_LIB
 
 # Build rule for target.
@@ -187,6 +200,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... GLAD_LIB"
 	@echo "... ImGUI_GLFW_LIB"
 	@echo "... QiView_LIB"
 	@echo "... main"

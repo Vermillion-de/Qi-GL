@@ -196,20 +196,22 @@ CMakeFiles/main.dir/main.cpp.o: /home/qi/Desktop/Qi-GL/main.cpp \
  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
- /usr/include/c++/11/tr1/riemann_zeta.tcc /usr/local/include/GLFW/glfw3.h \
- /usr/include/GL/gl.h /usr/include/GL/glext.h \
- /usr/include/KHR/khrplatform.h /usr/include/GL/glu.h \
- /home/qi/Desktop/Qi-GL/./src/./imgui/imgui_glfw.h \
+ /usr/include/c++/11/tr1/riemann_zeta.tcc \
+ /home/qi/Desktop/Qi-GL/./src/glad/glad.h \
+ /home/qi/Desktop/Qi-GL/./src/glad/khrplatform.h /usr/include/inttypes.h \
+ /usr/local/include/GLFW/glfw3.h /usr/include/GL/glu.h \
+ /usr/include/GL/gl.h /home/qi/Desktop/Qi-GL/./src/./imgui/imgui_glfw.h \
  /home/qi/Desktop/Qi-GL/./src/./imgui/imgui.h \
  /home/qi/Desktop/Qi-GL/./src/./imgui/imconfig.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h /usr/include/assert.h \
  /home/qi/Desktop/Qi-GL/./src/./imgui/imgui_impl_glfw.h \
  /home/qi/Desktop/Qi-GL/./src/./imgui/imgui_impl_opengl2.h \
- /home/qi/Desktop/Qi-GL/./src/data.h /home/qi/Desktop/Qi-GL/./src/obj.h \
- /usr/include/glm/glm.hpp /usr/include/glm/detail/_fixes.hpp \
- /usr/include/glm/detail/setup.hpp /usr/include/c++/11/cassert \
- /usr/include/c++/11/cstddef /usr/include/glm/simd/platform.h \
- /usr/include/c++/11/climits \
+ /home/qi/Desktop/Qi-GL/./src/./imgui/imgui_impl_opengl3.h \
+ /home/qi/Desktop/Qi-GL/./src/obj.h /usr/include/c++/11/sstream \
+ /usr/include/c++/11/bits/sstream.tcc /usr/include/glm/glm.hpp \
+ /usr/include/glm/detail/_fixes.hpp /usr/include/glm/detail/setup.hpp \
+ /usr/include/c++/11/cassert /usr/include/c++/11/cstddef \
+ /usr/include/glm/simd/platform.h /usr/include/c++/11/climits \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \

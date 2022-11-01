@@ -12,7 +12,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.22.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.22.1/CMakeSystem.cmake"
   "../src/CMakeLists.txt"
+  "../src/glad/CMakeLists.txt"
   "../src/imgui/CMakeLists.txt"
+  "../src/shaders/CMakeLists.txt"
   "/usr/local/lib/cmake/glfw3/glfw3Config.cmake"
   "/usr/local/lib/cmake/glfw3/glfw3ConfigVersion.cmake"
   "/usr/local/lib/cmake/glfw3/glfw3Targets-noconfig.cmake"
@@ -55,12 +57,15 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/glad/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/imgui/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/shaders/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/main.dir/DependInfo.cmake"
   "src/CMakeFiles/QiView_LIB.dir/DependInfo.cmake"
+  "src/glad/CMakeFiles/GLAD_LIB.dir/DependInfo.cmake"
   "src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/DependInfo.cmake"
   )

@@ -172,11 +172,13 @@ src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: \
  /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc /usr/include/GL/gl.h \
- /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h \
- /usr/include/glm/glm.hpp /usr/include/glm/detail/_fixes.hpp \
- /usr/include/c++/11/cmath /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/sstream \
+ /usr/include/c++/11/bits/sstream.tcc /usr/include/c++/11/iostream \
+ /home/qi/Desktop/Qi-GL/src/glad/glad.h \
+ /home/qi/Desktop/Qi-GL/src/glad/khrplatform.h /usr/include/inttypes.h \
+ /usr/include/GL/gl.h /usr/include/glm/glm.hpp \
+ /usr/include/glm/detail/_fixes.hpp /usr/include/c++/11/cmath \
+ /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
  /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
@@ -326,5 +328,4 @@ src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
- /home/qi/Desktop/Qi-GL/src/data.h /usr/include/c++/11/iostream
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h

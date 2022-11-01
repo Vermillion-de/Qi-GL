@@ -226,6 +226,30 @@ imgui_impl_opengl2.cpp.s:
 	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/build.make src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl2.cpp.s
 .PHONY : imgui_impl_opengl2.cpp.s
 
+imgui_impl_opengl3.o: imgui_impl_opengl3.cpp.o
+.PHONY : imgui_impl_opengl3.o
+
+# target to build an object file
+imgui_impl_opengl3.cpp.o:
+	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/build.make src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl3.cpp.o
+.PHONY : imgui_impl_opengl3.cpp.o
+
+imgui_impl_opengl3.i: imgui_impl_opengl3.cpp.i
+.PHONY : imgui_impl_opengl3.i
+
+# target to preprocess a source file
+imgui_impl_opengl3.cpp.i:
+	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/build.make src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl3.cpp.i
+.PHONY : imgui_impl_opengl3.cpp.i
+
+imgui_impl_opengl3.s: imgui_impl_opengl3.cpp.s
+.PHONY : imgui_impl_opengl3.s
+
+# target to generate assembly for a file
+imgui_impl_opengl3.cpp.s:
+	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/build.make src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/imgui_impl_opengl3.cpp.s
+.PHONY : imgui_impl_opengl3.cpp.s
+
 imgui_tables.o: imgui_tables.cpp.o
 .PHONY : imgui_tables.o
 
@@ -295,6 +319,9 @@ help:
 	@echo "... imgui_impl_opengl2.o"
 	@echo "... imgui_impl_opengl2.i"
 	@echo "... imgui_impl_opengl2.s"
+	@echo "... imgui_impl_opengl3.o"
+	@echo "... imgui_impl_opengl3.i"
+	@echo "... imgui_impl_opengl3.s"
 	@echo "... imgui_tables.o"
 	@echo "... imgui_tables.i"
 	@echo "... imgui_tables.s"

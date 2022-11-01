@@ -81,17 +81,38 @@ clean: src/clean
 
 # Recursive "all" directory target.
 src/all: src/CMakeFiles/QiView_LIB.dir/all
+src/all: src/glad/all
 src/all: src/imgui/all
+src/all: src/shaders/all
 .PHONY : src/all
 
 # Recursive "preinstall" directory target.
+src/preinstall: src/glad/preinstall
 src/preinstall: src/imgui/preinstall
+src/preinstall: src/shaders/preinstall
 .PHONY : src/preinstall
 
 # Recursive "clean" directory target.
 src/clean: src/CMakeFiles/QiView_LIB.dir/clean
+src/clean: src/glad/clean
 src/clean: src/imgui/clean
+src/clean: src/shaders/clean
 .PHONY : src/clean
+
+#=============================================================================
+# Directory level rules for directory src/glad
+
+# Recursive "all" directory target.
+src/glad/all: src/glad/CMakeFiles/GLAD_LIB.dir/all
+.PHONY : src/glad/all
+
+# Recursive "preinstall" directory target.
+src/glad/preinstall:
+.PHONY : src/glad/preinstall
+
+# Recursive "clean" directory target.
+src/glad/clean: src/glad/CMakeFiles/GLAD_LIB.dir/clean
+.PHONY : src/glad/clean
 
 #=============================================================================
 # Directory level rules for directory src/imgui
@@ -109,19 +130,35 @@ src/imgui/clean: src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/clean
 .PHONY : src/imgui/clean
 
 #=============================================================================
+# Directory level rules for directory src/shaders
+
+# Recursive "all" directory target.
+src/shaders/all:
+.PHONY : src/shaders/all
+
+# Recursive "preinstall" directory target.
+src/shaders/preinstall:
+.PHONY : src/shaders/preinstall
+
+# Recursive "clean" directory target.
+src/shaders/clean:
+.PHONY : src/shaders/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
 CMakeFiles/main.dir/all: src/CMakeFiles/QiView_LIB.dir/all
+CMakeFiles/main.dir/all: src/glad/CMakeFiles/GLAD_LIB.dir/all
 CMakeFiles/main.dir/all: src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=11,12 "Built target main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=14,15 "Built target main"
 .PHONY : CMakeFiles/main.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 0
 .PHONY : CMakeFiles/main.dir/rule
@@ -139,15 +176,16 @@ CMakeFiles/main.dir/clean:
 # Target rules for target src/CMakeFiles/QiView_LIB.dir
 
 # All Build rule for target.
+src/CMakeFiles/QiView_LIB.dir/all: src/glad/CMakeFiles/GLAD_LIB.dir/all
 src/CMakeFiles/QiView_LIB.dir/all: src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/all
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=8,9,10 "Built target QiView_LIB"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=11,12,13 "Built target QiView_LIB"
 .PHONY : src/CMakeFiles/QiView_LIB.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/QiView_LIB.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 13
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/QiView_LIB.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/QiView_LIB.dir/rule
@@ -162,18 +200,44 @@ src/CMakeFiles/QiView_LIB.dir/clean:
 .PHONY : src/CMakeFiles/QiView_LIB.dir/clean
 
 #=============================================================================
+# Target rules for target src/glad/CMakeFiles/GLAD_LIB.dir
+
+# All Build rule for target.
+src/glad/CMakeFiles/GLAD_LIB.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/glad/CMakeFiles/GLAD_LIB.dir/build.make src/glad/CMakeFiles/GLAD_LIB.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/glad/CMakeFiles/GLAD_LIB.dir/build.make src/glad/CMakeFiles/GLAD_LIB.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=1,2 "Built target GLAD_LIB"
+.PHONY : src/glad/CMakeFiles/GLAD_LIB.dir/all
+
+# Build rule for subdir invocation for target.
+src/glad/CMakeFiles/GLAD_LIB.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/glad/CMakeFiles/GLAD_LIB.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 0
+.PHONY : src/glad/CMakeFiles/GLAD_LIB.dir/rule
+
+# Convenience name for target.
+GLAD_LIB: src/glad/CMakeFiles/GLAD_LIB.dir/rule
+.PHONY : GLAD_LIB
+
+# clean rule for target.
+src/glad/CMakeFiles/GLAD_LIB.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/glad/CMakeFiles/GLAD_LIB.dir/build.make src/glad/CMakeFiles/GLAD_LIB.dir/clean
+.PHONY : src/glad/CMakeFiles/GLAD_LIB.dir/clean
+
+#=============================================================================
 # Target rules for target src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir
 
 # All Build rule for target.
 src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/build.make src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/build.make src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target ImGUI_GLFW_LIB"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=3,4,5,6,7,8,9,10 "Built target ImGUI_GLFW_LIB"
 .PHONY : src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/all
 
 # Build rule for subdir invocation for target.
 src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/qi/Desktop/Qi-GL/build/CMakeFiles 0
 .PHONY : src/imgui/CMakeFiles/ImGUI_GLFW_LIB.dir/rule
