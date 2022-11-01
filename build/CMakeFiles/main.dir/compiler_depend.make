@@ -243,11 +243,12 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/tr1/poly_hermite.tcc \
   /usr/include/c++/11/tr1/poly_laguerre.tcc \
   /usr/include/c++/11/tr1/riemann_zeta.tcc \
+  ../src/glad/glad.h \
+  ../src/glad/khrplatform.h \
+  /usr/include/inttypes.h \
   /usr/local/include/GLFW/glfw3.h \
-  /usr/include/GL/gl.h \
-  /usr/include/GL/glext.h \
-  /usr/include/KHR/khrplatform.h \
   /usr/include/GL/glu.h \
+  /usr/include/GL/gl.h \
   ../src/imgui/imgui_glfw.h \
   ../src/imgui/imgui.h \
   ../src/imgui/imconfig.h \
@@ -460,6 +461,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/glm/ext/matrix_float4x3.hpp:
 
+/usr/include/glm/ext/matrix_double4x3_precision.hpp:
+
 /usr/include/glm/ext/matrix_float4x2.hpp:
 
 /usr/include/glm/ext/matrix_double4x2_precision.hpp:
@@ -585,6 +588,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/detail/setup.hpp:
 
 /usr/include/glm/detail/_fixes.hpp:
+
+/usr/include/glm/glm.hpp:
 
 /usr/include/pthread.h:
 
@@ -741,8 +746,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/detail/func_integer.inl:
 
 /usr/include/stdlib.h:
-
-/usr/include/glm/glm.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
@@ -915,8 +918,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
-
-/usr/include/GL/glext.h:
 
 /usr/include/glm/detail/type_vec4.inl:
 
@@ -1092,6 +1093,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/bits/streambuf_iterator.h:
 
+../src/glad/khrplatform.h:
+
 /usr/include/glm/detail/type_mat2x4.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
@@ -1204,13 +1207,13 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/tr1/riemann_zeta.tcc:
 
+../src/glad/glad.h:
+
+/usr/include/inttypes.h:
+
 /usr/include/c++/11/bits/hashtable_policy.h:
 
 /usr/local/include/GLFW/glfw3.h:
-
-/usr/include/glm/ext/matrix_double4x3_precision.hpp:
-
-/usr/include/KHR/khrplatform.h:
 
 ../src/imgui/imconfig.h:
 

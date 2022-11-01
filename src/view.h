@@ -5,12 +5,13 @@
 #include <functional>
 #include <math.h>
 
+// #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <GL/glu.h>
 
-#include "../imgui/imgui_glfw.h"
+#include "./imgui/imgui_glfw.h"
 #include "data.h"
-#include "obj.cpp"
+#include "obj.h"
 
 class View
 {
@@ -21,6 +22,7 @@ public: // window situation
     std::pair<vec2i, bool> mouseLeft{{0,0},false};
     std::pair<vec2i, bool> mouseMid{{0,0},false};
     std::pair<vec2i, bool> mouseRight{{0,0},false};
+    double mouse_x=0, mouse_y=0;
 public: //glfw settings
     void glfw_init();
 public: // imgui things
@@ -32,7 +34,6 @@ public: // imgui things
     void imgui_end(); 
 public:     // static things for callbacks...
     static View* global_view;   
-    static void reshapeWindow(int w, int h);
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void mouse_click_callback(GLFWwindow* window, int button, int action, int mods);
     static void mouse_scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -54,8 +55,12 @@ public:     // react of this functions
     void moveMouseReact();
     // void reshapeWindowReact(int w, int h);  
     // void load(std::string obj_path, bool centerlize);
+    void load(std::string obj_path, bool centerlize);
     void load(std::string obj_path, std::string texture_path,bool centerlize);
     void render();
     void show(int argc, char **argv);
 };
+
+#ifndef USE_QIView
 View* View::global_view = nullptr;
+#endif

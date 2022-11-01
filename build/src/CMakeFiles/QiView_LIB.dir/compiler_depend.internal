@@ -644,11 +644,12 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o
  /usr/include/c++/11/tr1/poly_hermite.tcc
  /usr/include/c++/11/tr1/poly_laguerre.tcc
  /usr/include/c++/11/tr1/riemann_zeta.tcc
+ /home/qi/Desktop/Qi-GL/src/glad/glad.h
+ /home/qi/Desktop/Qi-GL/src/glad/khrplatform.h
+ /usr/include/inttypes.h
  /usr/local/include/GLFW/glfw3.h
- /usr/include/GL/gl.h
- /usr/include/GL/glext.h
- /usr/include/KHR/khrplatform.h
  /usr/include/GL/glu.h
+ /usr/include/GL/gl.h
  /home/qi/Desktop/Qi-GL/src/imgui/imgui_glfw.h
  /home/qi/Desktop/Qi-GL/src/imgui/imgui.h
  /home/qi/Desktop/Qi-GL/src/imgui/imconfig.h

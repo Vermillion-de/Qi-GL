@@ -13,6 +13,13 @@
 //-----------------------------------------------------------------------------
 
 #pragma once
+// #include <string>
+// 
+// namespace ImGUI_QiConfig
+// {
+        // std::string Font = "/home/qi/Desktop/Qi-GL/imgui/DroidSans.ttf";
+// } // namespace ImGUI_QiConfig
+
 
 //---- Define assertion handler. Defaults to calling assert().
 // If your macro uses multiple statements, make sure is enclosed in a 'do { .. } while (0)' block so it can be used as a single statement.

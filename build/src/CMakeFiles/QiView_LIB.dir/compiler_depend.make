@@ -642,11 +642,12 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o: ../src/view.cpp \
   /usr/include/c++/11/tr1/poly_hermite.tcc \
   /usr/include/c++/11/tr1/poly_laguerre.tcc \
   /usr/include/c++/11/tr1/riemann_zeta.tcc \
+  ../src/glad/glad.h \
+  ../src/glad/khrplatform.h \
+  /usr/include/inttypes.h \
   /usr/local/include/GLFW/glfw3.h \
-  /usr/include/GL/gl.h \
-  /usr/include/GL/glext.h \
-  /usr/include/KHR/khrplatform.h \
   /usr/include/GL/glu.h \
+  /usr/include/GL/gl.h \
   ../src/imgui/imgui_glfw.h \
   ../src/imgui/imgui.h \
   ../src/imgui/imconfig.h \
@@ -820,6 +821,12 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o: ../src/view.cpp \
 ../src/imgui/imconfig.h:
 
 /usr/include/GL/glu.h:
+
+/usr/include/inttypes.h:
+
+../src/glad/khrplatform.h:
+
+../src/glad/glad.h:
 
 ../src/view.h:
 
