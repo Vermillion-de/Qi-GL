@@ -4,8 +4,8 @@
 void View::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
 #ifdef DEV
     std::cout << "Pressed key (" << (char)key << ") as (" <<  scancode << ") with action, " << action << " in mode " << mods << "." << std::endl; 
-    if (key == GLFW_KEY_ESCAPE) { std::cout << "Pressed key [esc], so quit.." << std::endl;  exit(0); }
 #endif
+    if (key == GLFW_KEY_ESCAPE) { std::cout << "Pressed key [esc], so quit.." << std::endl;  exit(0); }
     View::global_view->keyReact(key);
 }
 
@@ -119,6 +119,7 @@ void View::load(std::string obj_path, std::string vshader_path, std::string fsha
 }
 
 void View::load(std::string obj_path, std::string texture_path,  std::string vshader_path, std::string fshader_path, bool centerlize=true){
+    for (int i = 0; i < obj_path.size(); i++) data_path[i] = obj_path[i];
     data.set_obj(obj_path, centerlize);
     data.set_shader(vshader_path, fshader_path);
     data.set_texture(texture_path);
@@ -140,10 +141,9 @@ void View::render(){
     glUniformMatrix4fv(view_ID, 1, GL_FALSE, &view[0][0]);
     data.render();
     glOrtho(-dx,dx,-dy,dy,-dz,dz);
-#ifdef DEV
-    drawCube(1);
-    drawAxis(1);
-#endif
+
+    if(show_cube)  drawCube(1);
+    if(show_axis) drawAxis(1);
 }
 
 void error_callback(int error, const char* description){
@@ -170,8 +170,8 @@ void View::imgui_init(){
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void) io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init();
@@ -183,26 +183,88 @@ void View::imgui_render(){
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    static int counter = 0;
 
-    ImGui::Begin("Camera Settings");                         
-    ImGui::Text("Refreshing %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-    ImGui::Checkbox("Another Window", &show_another_window);
-    // ImGui::SliderFloat("x orth box", &dx, 0.0f, 10.0f);
-    ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-    if (ImGui::Button("Button")) counter++; ImGui::SameLine(); ImGui::Text("counter = %d", counter);
+    static bool show_window_settings = false;
+    static bool show_render_settings = false;
+
+    ImGui::Begin("Settings");
+    ImGui::Text("Frame Rate: %.2f ms/frame (%.1f Hz)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Checkbox("Window Settings", &show_window_settings);
+    ImGui::Checkbox("Render Settings", &show_render_settings);
+    
+    if(ImGui::Button("Reload Shaders")) {data.init_shader();}
+    ImGui::SameLine();
+    if(ImGui::Button("Reload Texture")) {data.init_texture();}
+    
     ImGui::End();
 
-    // 3. Show another simple window.
-    if (show_another_window)
+
+
+    if (show_window_settings)  // general settings
     {
-        ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-        ImGui::Text("Hello from another window!");
-        if (ImGui::Button("Close Me"))
-            show_another_window = false;
+        ImGui::Begin("Window Settings", &show_window_settings);
+        ImGui::ColorEdit3("Background Color", (float*)&clear_color);
+
+        ImGui::Checkbox("Show United Cube", &show_cube);
+        ImGui::SameLine();
+        ImGui::Checkbox("Show Axis", &show_axis);
+        
         ImGui::End();
     }
+    
+    if(show_render_settings)
+    {
+        ImGui::Begin("Rendering Settings", &show_render_settings);
+        
+        if(ImGui::Button("Reload Shaders")) {data.init_shader();}
+        ImGui::SameLine();
+        if(ImGui::Button("Reload Texture")) {data.init_texture();}
+
+        ImGui::Checkbox("Use Light", &use_light);
+
+        ImGui::SliderFloat("Radis of Camera", &r, 0.1,5);
+        
+        ImGui::End();
+    }
+
+
+
+
+    // static int counter = 0;
+
+    // ImGui::Begin("View Settings");                         
+    // ImGui::Text("Refreshing %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    
+    // ImGui::Checkbox("General settings", &show_another_window);
+    
+    // ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+    // ImGui::InputText("Data path", data_path,10); 
+    // ImGui::SameLine();
+    // if(ImGui::Button("Load data!"))
+    // std::cout << data_path << std::endl;
+
+    // if(ImGui::Button("Reload Shaders")) {data.init_shader();}
+    // if(ImGui::Button("Reload Texture")) {data.init_texture();}
+    
+
+    // ImGui::NewLine();
+
+    // ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+    // ImGui::Checkbox("Another Window", &show_another_window);
+    // // ImGui::SliderFloat("x orth box", &dx, 0.0f, 10.0f);
+    // // if (ImGui::Button("Button")) counter++; ImGui::SameLine(); ImGui::Text("counter = %d", counter);
+    // ImGui::End();
+
+    // // 3. Show another simple window.
+    // if (show_another_window)
+    // {
+    //     ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+    //     ImGui::Text("Hello from another window!");
+    //     if (ImGui::Button("Close Me"))
+    //         show_another_window = false;
+    //     ImGui::End();
+    // }
 
     // Rendering
     ImGui::Render();
@@ -225,6 +287,7 @@ void View::show(int argc, char **argv){
         this->moveMouseReact();
         this->reshapeWindowReact();
         this->render();
+        glDepthFunc(GL_LESS);
         imgui_render();
         glfwSwapBuffers(window);
     }

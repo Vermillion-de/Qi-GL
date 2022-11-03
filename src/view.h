@@ -26,8 +26,6 @@ public: // window situation
 public: //glfw settings
     void glfw_init();
 public: // imgui things
-    bool show_demo_window = true;
-    bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     void imgui_init();
     void imgui_render(); 
@@ -38,12 +36,16 @@ public:     // static things for callbacks...
     static void mouse_click_callback(GLFWwindow* window, int button, int action, int mods);
     static void mouse_scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 public:     // camera, sence things
-    double r = sqrt(3);
+    float r = 0.1;
     int theta = 0, phi = 135;
-    bool use_light = false;
     float dx=3, dy=3, dz=3;     // for orth view size
+
+    bool use_light = false;
+    bool show_cube = true;
+    bool show_axis = true;
 private:    // renderred data
     Obj data;
+    char data_path[100];
 public:  
     View(){};
     ~View(){};

@@ -5,6 +5,8 @@
 3. using texture with stb_image
 4. use imgui for interaction
 5. work with cmake
+6. Updating into OpenGL3 with GLSL.
+7. Allowing many interaction based on ImGui(for graphics study).
 ### TODO:
 1. add light (commonly good for light)
 2. reimplement with modern opengl (mainly with the "draw" function)
