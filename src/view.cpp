@@ -65,12 +65,10 @@ void View::moveMouseReact(){
     if(ImGui::GetIO().WantCaptureMouse){ return; }   // mouse is on ImGUI
     glfwGetCursorPos(window, &mouse_x, &mouse_y);   
     if (mouseLeft.second == true){
-        theta += (mouse_x - mouseLeft.first.x)/2;
-        phi += (mouse_y - mouseLeft.first.y)/2;
+        theta -= (mouse_x - mouseLeft.first.x)/2;
+        phi -= (mouse_y - mouseLeft.first.y)/2;
         theta %= 360; phi %= 360;
-        mouseLeft.first.x = mouse_x;
-        mouseLeft.first.y = mouse_y;
-        mouseLeft.second = true;
+        mouseLeft =  std::pair<glm::ivec2, bool>{{mouse_x, mouse_y}, true};
     }
     else if (mouseMid.second == true){
         double Theta = theta/180.*M_PI, Phi = phi/180.*M_PI;
@@ -78,9 +76,7 @@ void View::moveMouseReact(){
         double dy = (mouse_y - mouseMid.first.y);
         data.move( sin(Phi)*sin(Theta)*dx/200.,     0,                  -sin(Phi)*cos(Theta)*dx/200.);
         data.move(-cos(Phi)*cos(Theta)*dy/200.,    -sin(Phi)*dy/200.,   -cos(Phi)*sin(Theta)*dy/200.);
-        mouseMid.first.x = mouse_x;
-        mouseMid.first.y = mouse_y;
-        mouseMid.second = true;
+        mouseMid =  std::pair<glm::ivec2, bool>{{mouse_x, mouse_y}, true};
     }
 }
 
@@ -89,10 +85,10 @@ void View::keyReact(unsigned char key){
     double Theta = theta/180.*M_PI, Phi = phi/180.*M_PI;
     switch (key){
         // rotate object
-        case 'H': theta--; theta %= 360; break;
-        case 'L': theta++; theta %= 360; break;
-        case 'K': phi--; phi %= 360; break;
-        case 'J': phi++; phi %= 360; break;
+        case 'H': theta++; theta %= 360; break;
+        case 'L': theta--; theta %= 360; break;
+        case 'K': phi++; phi %= 360; break;
+        case 'J': phi--; phi %= 360; break;
         // move object
         case 'A': data.move(-sin(Phi)*sin(Theta)/50.,   0,              sin(Phi)*cos(Theta)/50.); break;
         case 'D': data.move( sin(Phi)*sin(Theta)/50.,   0,             -sin(Phi)*cos(Theta)/50.); break;
@@ -128,19 +124,24 @@ void View::load(std::string obj_path, std::string texture_path,  std::string vsh
 
 
 void View::render(){    
-    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);  
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
+
+    glEnable(GL_DEPTH_TEST); 
     glDepthFunc(GL_LESS);
-    glLoadIdentity();    
+
+    //// functions beloew not functional in OpenGL3
+    // glLoadIdentity();
+    // glOrtho(-dx,dx,-dy,dy,-dz,dz);
+
+    // Give Shader the View matrix
     double Theta = theta/180.*M_PI, Phi = phi/180.*M_PI;
     double h = -r*cos(Phi), l = r*sin(Phi);
-    // gluLookAt(l*cos(Theta),h,l*sin(Theta),  0.0,0.0,0.0,  -h*cos(Theta),l,-h*sin(Theta));
     glm::mat4x4 view = glm::lookAt(glm::vec3{l*cos(Theta),h,l*sin(Theta)}, glm::vec3{0,0,0}, glm::vec3{-h*cos(Theta),l,-h*sin(Theta)});
     int view_ID = glGetUniformLocation(data.shader_ID, "view");
     glUniformMatrix4fv(view_ID, 1, GL_FALSE, &view[0][0]);
+
     data.render();
-    glOrtho(-dx,dx,-dy,dy,-dz,dz);
 
     if(show_cube)  drawCube(1);
     if(show_axis) drawAxis(1);
@@ -183,7 +184,6 @@ void View::imgui_render(){
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-
     static bool show_window_settings = false;
     static bool show_render_settings = false;
 
@@ -205,10 +205,6 @@ void View::imgui_render(){
         ImGui::Begin("Window Settings", &show_window_settings);
         ImGui::ColorEdit3("Background Color", (float*)&clear_color);
 
-        ImGui::Checkbox("Show United Cube", &show_cube);
-        ImGui::SameLine();
-        ImGui::Checkbox("Show Axis", &show_axis);
-        
         ImGui::End();
     }
     
@@ -222,6 +218,10 @@ void View::imgui_render(){
 
         ImGui::Checkbox("Use Light", &use_light);
 
+        ImGui::Checkbox("Show United Cube", &show_cube);
+        ImGui::SameLine();
+        ImGui::Checkbox("Show Axis", &show_axis);
+        
         ImGui::SliderFloat("Radis of Camera", &r, 0.1,5);
         
         ImGui::End();
