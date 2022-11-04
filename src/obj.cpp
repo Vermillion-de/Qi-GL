@@ -1,17 +1,18 @@
 // #pragma once
 #include "obj.h"
 
-void Obj::init(){
-    init_obj();
-    if (use_texture) init_texture();
+void Obj::load(){
+    load_obj();
+    if (use_texture) load_texture();
     if (use_shader) { 
         std::cout << "Core shading!!!" << std::endl;
-        init_shader(); 
+        shader.load();
+        // load_shader(); 
         core_bind(); 
     }
 }
 
-void Obj::init_obj(){
+void Obj::load_obj(){
     std::ifstream objfile(obj_path);
 
     // split a string according to "t"
@@ -92,7 +93,7 @@ void Obj::init_obj(){
 #endif
 };
 
-void Obj::init_texture(){
+void Obj::load_texture(){
     int t_w, t_h, t_channel;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     unsigned char *pixels = stbi_load(texture_path.c_str(), &t_w, &t_h, &t_channel, 0); 
@@ -106,57 +107,6 @@ void Obj::init_texture(){
 #endif
 }
 
-void Obj::init_shader(){
-    // read shaders
-    std::ifstream vshader_file(vshader_path);
-    std::ifstream fshader_file(fshader_path);
-    std::stringstream vshader_code, fshader_code;
-
-    vshader_code << vshader_file.rdbuf();
-    fshader_code << fshader_file.rdbuf();
-
-    vshader_file.close();
-    fshader_file.close();
-    
-    std::string vs_temp = vshader_code.str();
-    std::string fs_temp = fshader_code.str();
-    const char* vshader_source = vs_temp.c_str();
-    const char* fshader_source = fs_temp.c_str();
-    
-    std::function<void(unsigned int, GLenum)> checkProgram = [](unsigned int Program_ID, GLenum flag){
-        int success;
-        glGetShaderiv(Program_ID, flag, &success);
-        if (!success)
-        {
-            char infoLog[512];
-            glGetShaderInfoLog(Program_ID, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::ID("<< Program_ID << ")::FLAG(" << flag << ")" << "::COMPILATION_FAILED\n" << infoLog << std::endl;
-        }
-    };
-
-    //compile them    
-    vshader_ID = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vshader_ID, 1, &vshader_source, NULL);
-    glCompileShader(vshader_ID);
-    checkProgram(vshader_ID, GL_COMPILE_STATUS);
-
-    fshader_ID = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fshader_ID, 1, &fshader_source, NULL);
-    glCompileShader(fshader_ID);
-    checkProgram(fshader_ID, GL_COMPILE_STATUS);
-
-    shader_ID = glCreateProgram();
-    glAttachShader(shader_ID, vshader_ID);
-    glAttachShader(shader_ID, fshader_ID);
-    glLinkProgram(shader_ID);
-    checkProgram(shader_ID, GL_LINK_STATUS);
-
-
-    std::cout << "vs ID: " << vshader_ID << std::endl;
-    std::cout << "fs ID: " << fshader_ID << std::endl;
-    std::cout << "s  ID: " << shader_ID  << std::endl;
-    // attach them
-}
 
 void Obj::texture_settings(){
     glEnable(GL_TEXTURE_2D);
@@ -220,22 +170,6 @@ void Obj::render(){
 }
 
 void Obj::core_bind(){
-    // unsigned int VBO, VAO;
-    // glGenBuffers(1, &VBO);
-    // glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // float vertices[] = {
-    //      0.5f, -0.5f, 0.0f,  // bottom right
-    //     -0.5f, -0.5f, 0.0f,  // bottom left
-    //      0.0f,  0.5f, 0.0f   // top 
-    // };
-    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // glGenVertexArrays(1, &VAO);
-    // glBindVertexArray(VAO);
-    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    // glEnableVertexAttribArray(0);
-
-    // glBindVertexArray(VAO);
 
     float vbo[3*(3+2)*f.size()];
 
@@ -265,13 +199,11 @@ void Obj::core_bind(){
 };
 
 void Obj::core_render(){
-    glUseProgram(shader_ID);
+    shader.use();
     if( use_texture ) texture_settings();
     glBindBuffer(GL_ARRAY_BUFFER, vbo_ID);
     glBindVertexArray(vao_ID);
-    int scale_ID = glGetUniformLocation(shader_ID,"scale");
-    int delta_ID = glGetUniformLocation(shader_ID,"delta");
-    glUniform1f(scale_ID, scale);
-    glUniform3f(delta_ID, delta.x, delta.y, delta.z);
+    shader.set_1f("scale", scale);
+    shader.set_3f("delta", delta.x, delta.y, delta.z);
     glDrawArrays(GL_TRIANGLES, 0, 3*f.size());
 };

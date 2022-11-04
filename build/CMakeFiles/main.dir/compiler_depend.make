@@ -424,7 +424,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
+  ../src/shader.h
 
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h:
@@ -778,6 +779,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/stdlib.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+../src/shader.h:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 

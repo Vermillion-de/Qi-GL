@@ -7,6 +7,7 @@
 
 int main(int argc, char **argv){
     View a;
+    // a.load("../data/lucy.obj", true);
     // a.load("../data/orge/bs_angry.obj",true);
     // a.load("../data/orge/bs_angry.obj","../data/orge/diffuse.png",true);
     // a.load("../data/orge/bs_angry.obj","../data/orge/diffuse.png","/home/qi/Desktop/Qi-GL/src/shaders/vshader.vs","/home/qi/Desktop/Qi-GL/src/shaders/fshader.fs", true);

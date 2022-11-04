@@ -328,4 +328,5 @@ src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
+ /home/qi/Desktop/Qi-GL/src/shader.h

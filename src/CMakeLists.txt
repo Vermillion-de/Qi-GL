@@ -25,6 +25,5 @@ target_link_libraries(QiView_LIB ImGUI_GLFW_LIB)
 ## add stb_image.h
 
 ## add shaders
-add_subdirectory("./shaders")
 
 set(QiView_INCLUDE "view.h" "obj.h")

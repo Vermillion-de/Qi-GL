@@ -138,8 +138,7 @@ void View::render(){
     double Theta = theta/180.*M_PI, Phi = phi/180.*M_PI;
     double h = -r*cos(Phi), l = r*sin(Phi);
     glm::mat4x4 view = glm::lookAt(glm::vec3{l*cos(Theta),h,l*sin(Theta)}, glm::vec3{0,0,0}, glm::vec3{-h*cos(Theta),l,-h*sin(Theta)});
-    int view_ID = glGetUniformLocation(data.shader_ID, "view");
-    glUniformMatrix4fv(view_ID, 1, GL_FALSE, &view[0][0]);
+    data.shader.set_mat4fv("view", &view[0][0]);    
 
     data.render();
 
@@ -192,12 +191,8 @@ void View::imgui_render(){
     ImGui::Checkbox("Window Settings", &show_window_settings);
     ImGui::Checkbox("Render Settings", &show_render_settings);
     
-    if(ImGui::Button("Reload Shaders")) {data.init_shader();}
-    ImGui::SameLine();
-    if(ImGui::Button("Reload Texture")) {data.init_texture();}
     
     ImGui::End();
-
 
 
     if (show_window_settings)  // general settings
@@ -212,9 +207,13 @@ void View::imgui_render(){
     {
         ImGui::Begin("Rendering Settings", &show_render_settings);
         
-        if(ImGui::Button("Reload Shaders")) {data.init_shader();}
+        if(ImGui::Button("Reload Shaders")) {data.shader.load();}
         ImGui::SameLine();
-        if(ImGui::Button("Reload Texture")) {data.init_texture();}
+        if(ImGui::Button("Reload Texture")) {data.load_texture();}
+
+        if(ImGui::Checkbox("Use Orth", &use_orth)) use_perp = !use_orth; 
+        ImGui::SameLine();
+        if(ImGui::Checkbox("Use Perp", &use_perp)) use_orth = !use_perp; 
 
         ImGui::Checkbox("Use Light", &use_light);
 
@@ -226,47 +225,6 @@ void View::imgui_render(){
         
         ImGui::End();
     }
-
-
-
-
-    // static int counter = 0;
-
-    // ImGui::Begin("View Settings");                         
-    // ImGui::Text("Refreshing %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    
-    // ImGui::Checkbox("General settings", &show_another_window);
-    
-    // ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-    // ImGui::InputText("Data path", data_path,10); 
-    // ImGui::SameLine();
-    // if(ImGui::Button("Load data!"))
-    // std::cout << data_path << std::endl;
-
-    // if(ImGui::Button("Reload Shaders")) {data.init_shader();}
-    // if(ImGui::Button("Reload Texture")) {data.init_texture();}
-    
-
-    // ImGui::NewLine();
-
-    // ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-    // ImGui::Checkbox("Another Window", &show_another_window);
-    // // ImGui::SliderFloat("x orth box", &dx, 0.0f, 10.0f);
-    // // if (ImGui::Button("Button")) counter++; ImGui::SameLine(); ImGui::Text("counter = %d", counter);
-    // ImGui::End();
-
-    // // 3. Show another simple window.
-    // if (show_another_window)
-    // {
-    //     ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-    //     ImGui::Text("Hello from another window!");
-    //     if (ImGui::Button("Close Me"))
-    //         show_another_window = false;
-    //     ImGui::End();
-    // }
-
-    // Rendering
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -281,7 +239,7 @@ void View::show(int argc, char **argv){
     global_view = this;
     glfw_init();
     imgui_init();
-    data.init();
+    data.load();
     while (!glfwWindowShouldClose(window)){
         glfwPollEvents();
         this->moveMouseReact();

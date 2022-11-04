@@ -403,7 +403,8 @@ src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: ../src/obj.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
+  ../src/shader.h
 
 src/CMakeFiles/QiView_LIB.dir/view.cpp.o: ../src/view.cpp \
   /usr/include/stdc-predef.h \
@@ -829,6 +830,7 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o: ../src/view.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
+  ../src/shader.h \
   ../src/misc.h
 
 
@@ -1149,6 +1151,8 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o: ../src/view.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+../src/shader.h:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 

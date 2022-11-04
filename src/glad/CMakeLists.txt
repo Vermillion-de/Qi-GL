@@ -1,1 +1,1 @@
-add_library(GLAD_LIB "./glad.c" "./glad.h" "./khrplatform.h")
+add_library(GLAD_LIB "glad.c" "glad.h" "khrplatform.h")

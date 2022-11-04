@@ -14,7 +14,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../src/CMakeLists.txt"
   "../src/glad/CMakeLists.txt"
   "../src/imgui/CMakeLists.txt"
-  "../src/shaders/CMakeLists.txt"
   "/usr/local/lib/cmake/glfw3/glfw3Config.cmake"
   "/usr/local/lib/cmake/glfw3/glfw3ConfigVersion.cmake"
   "/usr/local/lib/cmake/glfw3/glfw3Targets-noconfig.cmake"
@@ -59,7 +58,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/glad/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/imgui/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/shaders/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:

@@ -1,6 +1,9 @@
 #version 330 core
 in vec2 texCoord;
+
+// uniform bool use_texture;
 uniform sampler2D texture0;
+
 
 void main()
 {

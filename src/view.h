@@ -40,9 +40,14 @@ public:     // camera, sence things
     int theta = 0, phi = 135;
     float dx=3, dy=3, dz=3;     // for orth view size
 
+    bool use_orth = true;
+    bool use_perp = false;
+
     bool use_light = false;
+    
     bool show_cube = true;
     bool show_axis = true;
+
 private:    // renderred data
     Obj data;
     char data_path[100];
