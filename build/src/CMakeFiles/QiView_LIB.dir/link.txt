@@ -1,2 +1,0 @@
-/usr/bin/ar qc libQiView_LIB.a CMakeFiles/QiView_LIB.dir/view.cpp.o CMakeFiles/QiView_LIB.dir/object.cpp.o
-/usr/bin/ranlib libQiView_LIB.a
