@@ -83,30 +83,30 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/QiView_LIB.dir/view.cpp.s"
 	cd /home/qi/Desktop/Qi-GL/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qi/Desktop/Qi-GL/src/view.cpp -o CMakeFiles/QiView_LIB.dir/view.cpp.s
 
-src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: src/CMakeFiles/QiView_LIB.dir/flags.make
-src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: ../src/obj.cpp
-src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: src/CMakeFiles/QiView_LIB.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/QiView_LIB.dir/obj.cpp.o"
-	cd /home/qi/Desktop/Qi-GL/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/QiView_LIB.dir/obj.cpp.o -MF CMakeFiles/QiView_LIB.dir/obj.cpp.o.d -o CMakeFiles/QiView_LIB.dir/obj.cpp.o -c /home/qi/Desktop/Qi-GL/src/obj.cpp
+src/CMakeFiles/QiView_LIB.dir/object.cpp.o: src/CMakeFiles/QiView_LIB.dir/flags.make
+src/CMakeFiles/QiView_LIB.dir/object.cpp.o: ../src/object.cpp
+src/CMakeFiles/QiView_LIB.dir/object.cpp.o: src/CMakeFiles/QiView_LIB.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/QiView_LIB.dir/object.cpp.o"
+	cd /home/qi/Desktop/Qi-GL/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/QiView_LIB.dir/object.cpp.o -MF CMakeFiles/QiView_LIB.dir/object.cpp.o.d -o CMakeFiles/QiView_LIB.dir/object.cpp.o -c /home/qi/Desktop/Qi-GL/src/object.cpp
 
-src/CMakeFiles/QiView_LIB.dir/obj.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/QiView_LIB.dir/obj.cpp.i"
-	cd /home/qi/Desktop/Qi-GL/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/qi/Desktop/Qi-GL/src/obj.cpp > CMakeFiles/QiView_LIB.dir/obj.cpp.i
+src/CMakeFiles/QiView_LIB.dir/object.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/QiView_LIB.dir/object.cpp.i"
+	cd /home/qi/Desktop/Qi-GL/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/qi/Desktop/Qi-GL/src/object.cpp > CMakeFiles/QiView_LIB.dir/object.cpp.i
 
-src/CMakeFiles/QiView_LIB.dir/obj.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/QiView_LIB.dir/obj.cpp.s"
-	cd /home/qi/Desktop/Qi-GL/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qi/Desktop/Qi-GL/src/obj.cpp -o CMakeFiles/QiView_LIB.dir/obj.cpp.s
+src/CMakeFiles/QiView_LIB.dir/object.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/QiView_LIB.dir/object.cpp.s"
+	cd /home/qi/Desktop/Qi-GL/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qi/Desktop/Qi-GL/src/object.cpp -o CMakeFiles/QiView_LIB.dir/object.cpp.s
 
 # Object files for target QiView_LIB
 QiView_LIB_OBJECTS = \
 "CMakeFiles/QiView_LIB.dir/view.cpp.o" \
-"CMakeFiles/QiView_LIB.dir/obj.cpp.o"
+"CMakeFiles/QiView_LIB.dir/object.cpp.o"
 
 # External object files for target QiView_LIB
 QiView_LIB_EXTERNAL_OBJECTS =
 
 src/libQiView_LIB.a: src/CMakeFiles/QiView_LIB.dir/view.cpp.o
-src/libQiView_LIB.a: src/CMakeFiles/QiView_LIB.dir/obj.cpp.o
+src/libQiView_LIB.a: src/CMakeFiles/QiView_LIB.dir/object.cpp.o
 src/libQiView_LIB.a: src/CMakeFiles/QiView_LIB.dir/build.make
 src/libQiView_LIB.a: src/CMakeFiles/QiView_LIB.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/qi/Desktop/Qi-GL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libQiView_LIB.a"

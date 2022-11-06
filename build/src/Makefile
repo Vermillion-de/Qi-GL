@@ -130,29 +130,29 @@ QiView_LIB/fast:
 	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/build
 .PHONY : QiView_LIB/fast
 
-obj.o: obj.cpp.o
-.PHONY : obj.o
+object.o: object.cpp.o
+.PHONY : object.o
 
 # target to build an object file
-obj.cpp.o:
-	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/obj.cpp.o
-.PHONY : obj.cpp.o
+object.cpp.o:
+	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/object.cpp.o
+.PHONY : object.cpp.o
 
-obj.i: obj.cpp.i
-.PHONY : obj.i
+object.i: object.cpp.i
+.PHONY : object.i
 
 # target to preprocess a source file
-obj.cpp.i:
-	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/obj.cpp.i
-.PHONY : obj.cpp.i
+object.cpp.i:
+	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/object.cpp.i
+.PHONY : object.cpp.i
 
-obj.s: obj.cpp.s
-.PHONY : obj.s
+object.s: object.cpp.s
+.PHONY : object.s
 
 # target to generate assembly for a file
-obj.cpp.s:
-	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/obj.cpp.s
-.PHONY : obj.cpp.s
+object.cpp.s:
+	cd /home/qi/Desktop/Qi-GL/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/QiView_LIB.dir/build.make src/CMakeFiles/QiView_LIB.dir/object.cpp.s
+.PHONY : object.cpp.s
 
 view.o: view.cpp.o
 .PHONY : view.o
@@ -187,9 +187,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... QiView_LIB"
-	@echo "... obj.o"
-	@echo "... obj.i"
-	@echo "... obj.s"
+	@echo "... object.o"
+	@echo "... object.i"
+	@echo "... object.s"
 	@echo "... view.o"
 	@echo "... view.i"
 	@echo "... view.s"

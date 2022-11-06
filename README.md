@@ -8,7 +8,13 @@
 6. Updating into OpenGL3 with GLSL.
 7. Allowing many interaction based on ImGui(for graphics study).
 ### TODO:
-1. add light (commonly good for light)
-2. reimplement with modern opengl (mainly with the "draw" function)
-3. user interfare for chose point with mouse casting.
-4. Integral algorithms like meshlab.
+1. add light (commonly good for light) settings, summarize those rendering things into imgui. 
+2. Allow more man-graphics interaction (mouse rasting)
+3. Integral algorithms like meshlab.
+4. Add more things I know: multy threads, argparser, json file for rendering, ply loader(![happly](happly))
+5. CMake Tests and run time config(and loader)
+6. More intuitive rotation.(4-dim numbers).
+7. github workflows (and submodules for cross platform)
+8. LICENSE(finally)
+### Main reference
+Mainly learnt from [polyscope](), [libigl](), [learnopengl], thanks to all of them! without who I will never be able to play on such an amazing graphics playground.

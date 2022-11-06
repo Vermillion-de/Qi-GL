@@ -217,6 +217,10 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/bits/stl_heap.h \
   /usr/include/c++/11/bits/stl_tempbuf.h \
   /usr/include/c++/11/bits/uniform_int_dist.h \
+  /usr/include/c++/11/map \
+  /usr/include/c++/11/bits/stl_tree.h \
+  /usr/include/c++/11/bits/stl_map.h \
+  /usr/include/c++/11/bits/stl_multimap.h \
   /usr/include/c++/11/math.h \
   /usr/include/c++/11/cmath \
   /usr/include/math.h \
@@ -398,7 +402,7 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   ../src/imgui/imgui_impl_glfw.h \
   ../src/imgui/imgui_impl_opengl2.h \
   ../src/imgui/imgui_impl_opengl3.h \
-  ../src/obj.h \
+  ../src/object.h \
   /usr/include/c++/11/sstream \
   /usr/include/c++/11/bits/sstream.tcc \
   /usr/include/glm/glm.hpp \
@@ -420,12 +424,13 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/glm/detail/type_half.inl \
   /usr/include/glm/integer.hpp \
   /usr/include/glm/detail/func_integer.inl \
+  ../src/shader.h \
+  ../src/texture.h \
   ../src/stb_image.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
-  ../src/shader.h
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
 
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h:
@@ -433,8 +438,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h:
-
-../src/stb_image.h:
 
 /usr/include/glm/integer.hpp:
 
@@ -451,8 +454,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/glm.hpp:
 
 /usr/include/c++/11/sstream:
-
-../src/obj.h:
 
 ../src/imgui/imconfig.h:
 
@@ -501,6 +502,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/glm/ext/matrix_float4x2.hpp:
 
 /usr/include/glm/ext/matrix_double4x2_precision.hpp:
+
+../src/object.h:
 
 /usr/include/glm/detail/type_mat4x2.inl:
 
@@ -626,6 +629,16 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/glm/detail/compute_vector_relational.hpp:
 
+/usr/include/glm/ext/vector_int3_sized.hpp:
+
+/usr/include/assert.h:
+
+/usr/include/c++/11/cassert:
+
+/usr/include/glm/ext/matrix_clip_space.inl:
+
+/usr/include/glm/detail/setup.hpp:
+
 /usr/include/pthread.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
@@ -633,6 +646,14 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
+
+/usr/include/glm/gtc/matrix_transform.inl:
+
+/usr/include/glm/detail/type_mat2x3.hpp:
+
+/usr/include/glm/detail/qualifier.hpp:
+
+/usr/include/c++/11/bits/unordered_map.h:
 
 /usr/include/c++/11/clocale:
 
@@ -663,6 +684,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/asm-generic/errno-base.h:
 
 /usr/include/c++/11/tuple:
+
+/usr/include/c++/11/bits/stl_tree.h:
 
 /usr/include/glm/detail/type_mat4x3.inl:
 
@@ -738,6 +761,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 
+../src/texture.h:
+
 /usr/include/glm/ext/vector_int4_sized.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
@@ -786,8 +811,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
-../main.cpp:
-
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 
 /usr/include/GL/gl.h:
@@ -809,6 +832,10 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/ext/numeric_traits.h:
 
 /usr/include/features.h:
+
+../main.cpp:
+
+/usr/include/c++/11/bits/stl_multimap.h:
 
 /usr/include/c++/11/pstl/pstl_config.h:
 
@@ -912,10 +939,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/tr1/poly_laguerre.tcc:
 
-/usr/include/glm/ext/vector_int3_sized.hpp:
-
-/usr/include/assert.h:
-
 /usr/include/c++/11/bits/stl_iterator.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
@@ -1013,6 +1036,8 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /usr/include/c++/11/bits/range_access.h:
+
+/usr/include/c++/11/map:
 
 /usr/include/glm/ext/matrix_float4x3_precision.hpp:
 
@@ -1186,8 +1211,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
-/usr/include/c++/11/cassert:
-
 /usr/include/glm/ext/vector_uint3_sized.hpp:
 
 /usr/include/c++/11/bits/algorithmfwd.h:
@@ -1195,6 +1218,14 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/bits/std_abs.h:
 
 /usr/include/c++/11/bits/stl_heap.h:
+
+../src/stb_image.h:
+
+/usr/include/c++/11/bits/stl_map.h:
+
+/usr/include/glm/ext/vector_uint3.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
 /usr/include/glm/common.hpp:
 
@@ -1221,10 +1252,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/bits/postypes.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
-
-/usr/include/glm/ext/vector_uint3.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
 /usr/include/c++/11/bits/specfun.h:
 
@@ -1261,15 +1288,3 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
 
 /usr/include/glm/detail/type_mat4x4.hpp:
-
-/usr/include/glm/gtc/matrix_transform.inl:
-
-/usr/include/glm/detail/type_mat2x3.hpp:
-
-/usr/include/c++/11/bits/unordered_map.h:
-
-/usr/include/glm/detail/qualifier.hpp:
-
-/usr/include/glm/ext/matrix_clip_space.inl:
-
-/usr/include/glm/detail/setup.hpp:

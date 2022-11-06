@@ -2,6 +2,10 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec2 aTextureCoord;
 
+
+uniform bool use_texture = true;
+uniform bool use_normal = false;
+
 uniform mat4 view;
 uniform float scale;
 uniform vec3  delta;

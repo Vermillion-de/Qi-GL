@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/qi/Desktop/Qi-GL/src/obj.cpp" "src/CMakeFiles/QiView_LIB.dir/obj.cpp.o" "gcc" "src/CMakeFiles/QiView_LIB.dir/obj.cpp.o.d"
+  "/home/qi/Desktop/Qi-GL/src/object.cpp" "src/CMakeFiles/QiView_LIB.dir/object.cpp.o" "gcc" "src/CMakeFiles/QiView_LIB.dir/object.cpp.o.d"
   "/home/qi/Desktop/Qi-GL/src/view.cpp" "src/CMakeFiles/QiView_LIB.dir/view.cpp.o" "gcc" "src/CMakeFiles/QiView_LIB.dir/view.cpp.o.d"
   )
 

@@ -36,20 +36,19 @@ void View::mouseClickReact(int button, int action){
     switch (button)
     {
     case GLFW_MOUSE_BUTTON_LEFT :
-        // std::cout << "Pressed mouse left!" << std::endl;
         if (action == GLFW_PRESS && mouseLeft.second == false)  
-            mouseLeft = std::pair<glm::ivec2, bool>{{mouse_x,mouse_y},true};
+            mouseLeft = {{mouse_x,mouse_y},true};
         else if (action == GLFW_RELEASE)
-            mouseLeft = std::pair<glm::ivec2, bool>{{0,0},false};
+            mouseLeft = {{0,0},false};
         break;
     case GLFW_MOUSE_BUTTON_MIDDLE:
-        // std::cout << "Pressed mouse mid!" << std::endl;
         if (action == GLFW_PRESS && mouseMid.second == false)  
-            mouseMid = std::pair<glm::ivec2, bool>{{mouse_x,mouse_y},true};
+            mouseMid = {{mouse_x,mouse_y},true};
         else if (action == GLFW_RELEASE)
-            mouseMid = std::pair<glm::ivec2, bool>{{0,0},false};
+            mouseMid = {{0,0},false};
         break;
     case GLFW_MOUSE_BUTTON_RIGHT:
+        // TODO
         std::cout << "Pressed mouse Right!" << std::endl;
     default: break;
     }
@@ -68,7 +67,7 @@ void View::moveMouseReact(){
         theta -= (mouse_x - mouseLeft.first.x)/2;
         phi -= (mouse_y - mouseLeft.first.y)/2;
         theta %= 360; phi %= 360;
-        mouseLeft =  std::pair<glm::ivec2, bool>{{mouse_x, mouse_y}, true};
+        mouseLeft = {{mouse_x, mouse_y}, true};
     }
     else if (mouseMid.second == true){
         double Theta = theta/180.*M_PI, Phi = phi/180.*M_PI;
@@ -76,7 +75,7 @@ void View::moveMouseReact(){
         double dy = (mouse_y - mouseMid.first.y);
         data.move( sin(Phi)*sin(Theta)*dx/200.,     0,                  -sin(Phi)*cos(Theta)*dx/200.);
         data.move(-cos(Phi)*cos(Theta)*dy/200.,    -sin(Phi)*dy/200.,   -cos(Phi)*sin(Theta)*dy/200.);
-        mouseMid =  std::pair<glm::ivec2, bool>{{mouse_x, mouse_y}, true};
+        mouseMid = {{mouse_x, mouse_y}, true};
     }
 }
 
@@ -100,28 +99,14 @@ void View::keyReact(unsigned char key){
     }
 }
 
-void View::load(std::string obj_path, bool centerlize=true){    // TODO: aware of the size...
-   data.set_obj(obj_path, centerlize);
-}
-
-void View::load(std::string obj_path, std::string texture_path, bool centerlize=true){    // TODO: aware of the size...
-   data.set_obj(obj_path, centerlize);
-   data.set_texture(texture_path);
-}
-
-void View::load(std::string obj_path, std::string vshader_path, std::string fshader_path, bool centerlize=true){
-    data.set_obj(obj_path, centerlize);
-    data.set_shader(vshader_path, fshader_path);
-}
-
-void View::load(std::string obj_path, std::string texture_path,  std::string vshader_path, std::string fshader_path, bool centerlize=true){
-    for (int i = 0; i < obj_path.size(); i++) data_path[i] = obj_path[i];
-    data.set_obj(obj_path, centerlize);
-    data.set_shader(vshader_path, fshader_path);
-    data.set_texture(texture_path);
-}
-
-
+void View::load(std::map<std::string, std::string> config){
+    std::map<std::string, bool> str2bool{{"true", true}, {"false", false}};
+    data.set_object(config["object"], str2bool[config["centerlize"]]);
+    if(config["texture"] != "")
+        data.set_texture(config["texture"]);
+    if(config["vshader"] != "" && config["fshader"] !="") 
+        data.set_shader(config["vshader"], config["fshader"]);
+};
 
 void View::render(){    
     glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);  
@@ -129,10 +114,6 @@ void View::render(){
 
     glEnable(GL_DEPTH_TEST); 
     glDepthFunc(GL_LESS);
-
-    //// functions beloew not functional in OpenGL3
-    // glLoadIdentity();
-    // glOrtho(-dx,dx,-dy,dy,-dz,dz);
 
     // Give Shader the View matrix
     double Theta = theta/180.*M_PI, Phi = phi/180.*M_PI;
@@ -143,15 +124,10 @@ void View::render(){
     data.render();
 
     if(show_cube)  drawCube(1);
-    if(show_axis) drawAxis(1);
-}
-
-void error_callback(int error, const char* description){
-    std::cout << "Error (" << error << ") : " << description << std::endl;
+    if(show_axis)  drawAxis(1);
 }
 
 void View::glfw_init(){
-    glfwSetErrorCallback(error_callback);
     if(!glfwInit()) { std::cout << "can not init glfw window!" << std::endl; exit(-1);} 
     window = glfwCreateWindow(windowWidth, windowHeight, "Window", NULL, NULL);
     if(!window) {std::cout << "can not creat glfw window" << std::endl; exit(-1);}
@@ -170,8 +146,6 @@ void View::imgui_init(){
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void) io;
-    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init();
@@ -185,20 +159,38 @@ void View::imgui_render(){
 
     static bool show_window_settings = false;
     static bool show_render_settings = false;
+    static bool show_algorithms = false;
+    
+    static bool use_normal = false;
+    static bool use_texture = false;
+    static bool use_light = false;
+
+    static bool use_orth = true;
+    static bool use_perp = false;
+
 
     ImGui::Begin("Settings");
     ImGui::Text("Frame Rate: %.2f ms/frame (%.1f Hz)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    
     ImGui::Checkbox("Window Settings", &show_window_settings);
+    ImGui::Checkbox("Algorithms", &show_algorithms);
+
+    ImGui::ColorEdit3("Background Color", (float*)&clear_color);
+
     ImGui::Checkbox("Render Settings", &show_render_settings);
     
+    if(ImGui::Checkbox("Use Orth", &use_orth)) use_perp = !use_orth; 
+    ImGui::SameLine();
+    if(ImGui::Checkbox("Use Perp", &use_perp)) use_orth = !use_perp; 
     
+    ImGui::Checkbox("Use Normal", &use_normal);
+    ImGui::Checkbox("Use Texture", &use_texture);
+    ImGui::Checkbox("Use Light", &use_light);
     ImGui::End();
-
 
     if (show_window_settings)  // general settings
     {
         ImGui::Begin("Window Settings", &show_window_settings);
-        ImGui::ColorEdit3("Background Color", (float*)&clear_color);
 
         ImGui::End();
     }
@@ -209,13 +201,7 @@ void View::imgui_render(){
         
         if(ImGui::Button("Reload Shaders")) {data.shader.load();}
         ImGui::SameLine();
-        if(ImGui::Button("Reload Texture")) {data.load_texture();}
-
-        if(ImGui::Checkbox("Use Orth", &use_orth)) use_perp = !use_orth; 
-        ImGui::SameLine();
-        if(ImGui::Checkbox("Use Perp", &use_perp)) use_orth = !use_perp; 
-
-        ImGui::Checkbox("Use Light", &use_light);
+        if(ImGui::Button("Reload Texture")) {data.texture.load();}
 
         ImGui::Checkbox("Show United Cube", &show_cube);
         ImGui::SameLine();
@@ -225,6 +211,22 @@ void View::imgui_render(){
         
         ImGui::End();
     }
+
+    if (show_algorithms)
+    {
+        ImGui::Begin("Algorithms", &show_algorithms);
+        if (ImGui::Button("Marching it!"))
+        {
+            std::cout << "Marching!" << std::endl;
+        }
+        
+
+        ImGui::End();
+    }
+    
+
+
+
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -245,7 +247,6 @@ void View::show(int argc, char **argv){
         this->moveMouseReact();
         this->reshapeWindowReact();
         this->render();
-        glDepthFunc(GL_LESS);
         imgui_render();
         glfwSwapBuffers(window);
     }

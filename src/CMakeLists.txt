@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0)
 
-add_library(QiView_LIB "view.h" "view.cpp" "obj.h" "obj.cpp") 
+add_library(QiView_LIB "view.h" "view.cpp" "object.h" "object.cpp") 
 
 ## add library OpenGL and GLU
 cmake_policy(SET CMP0072 OLD)

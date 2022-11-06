@@ -11,7 +11,6 @@ add_library(ImGUI_GLFW_LIB STATIC
                     "imstb_truetype.h"
                     "imgui_impl_glfw.h" "imgui_impl_glfw.cpp" 
                     "imgui_impl_opengl2.h" "imgui_impl_opengl2.cpp"
-                    "imgui_impl_opengl3.h" "imgui_impl_opengl3.cpp" "imgui_impl_opengl3_loader.h"
-                    )
+                    "imgui_impl_opengl3.h" "imgui_impl_opengl3.cpp" "imgui_impl_opengl3_loader.h")
 
 # set(ImGUI_GLFW_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/imgui_glfw.h")

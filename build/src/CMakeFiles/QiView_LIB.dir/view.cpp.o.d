@@ -170,7 +170,9 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o: \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
- /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/math.h \
+ /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/bits/stl_multimap.h /usr/include/c++/11/math.h \
  /usr/include/c++/11/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -326,7 +328,7 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o: \
  /home/qi/Desktop/Qi-GL/src/./imgui/imgui_impl_glfw.h \
  /home/qi/Desktop/Qi-GL/src/./imgui/imgui_impl_opengl2.h \
  /home/qi/Desktop/Qi-GL/src/./imgui/imgui_impl_opengl3.h \
- /home/qi/Desktop/Qi-GL/src/obj.h /usr/include/c++/11/sstream \
+ /home/qi/Desktop/Qi-GL/src/object.h /usr/include/c++/11/sstream \
  /usr/include/c++/11/bits/sstream.tcc /usr/include/glm/glm.hpp \
  /usr/include/c++/11/climits \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
@@ -342,9 +344,10 @@ src/CMakeFiles/QiView_LIB.dir/view.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
+ /home/qi/Desktop/Qi-GL/src/shader.h /home/qi/Desktop/Qi-GL/src/texture.h \
  /home/qi/Desktop/Qi-GL/src/stb_image.h /usr/include/c++/11/stdlib.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
- /home/qi/Desktop/Qi-GL/src/shader.h /home/qi/Desktop/Qi-GL/src/misc.h
+ /home/qi/Desktop/Qi-GL/src/misc.h

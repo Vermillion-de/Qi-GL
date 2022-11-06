@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/QiView_LIB.dir/obj.cpp.o"
-  "CMakeFiles/QiView_LIB.dir/obj.cpp.o.d"
+  "CMakeFiles/QiView_LIB.dir/object.cpp.o"
+  "CMakeFiles/QiView_LIB.dir/object.cpp.o.d"
   "CMakeFiles/QiView_LIB.dir/view.cpp.o"
   "CMakeFiles/QiView_LIB.dir/view.cpp.o.d"
   "libQiView_LIB.a"

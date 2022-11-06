@@ -68,7 +68,8 @@
         "mutex": "cpp",
         "bitset": "cpp",
         "condition_variable": "cpp",
-        "shared_mutex": "cpp"
+        "shared_mutex": "cpp",
+        "glad.h": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

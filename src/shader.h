@@ -17,16 +17,16 @@ public:
     ~Shader(){};
 
 public: 
-    bool used;
-    
+    bool used=true;
     unsigned int shader_ID;
     unsigned int vshader_ID;
     unsigned int fshader_ID;    
-
     std::string vshader_path;
     std::string fshader_path;
 public:
     void set_path(std::string vs_path, std::string fs_path){ vshader_path = vs_path; fshader_path = fs_path; }
+    void activate(){ used = true; }
+    bool is_used(){return used;}
     void load(){
         // read source from file
         std::ifstream vshader_file(vshader_path);
@@ -69,34 +69,36 @@ public:
         glAttachShader(shader_ID, fshader_ID);
         glLinkProgram(shader_ID);
         checkProgram(shader_ID, GL_LINK_STATUS);
-#ifdef DEV
-        info();
-#endif
     };
     // void reload();
     void use(){ 
         glUseProgram(shader_ID); 
     };
 public:
+
     void set_1f(const char* name, float v){
         int v_ID = glGetUniformLocation(shader_ID, name);
         glUniform1f(v_ID, v); 
     };
+
     void set_3f(const char* name, float x, float y, float z){
         int value_ID = glGetUniformLocation(shader_ID, name);
         glUniform3f(value_ID,x, y, z);
     }
+
     void set_mat4fv(const char* name, const float* mat){
         int mat_ID = glGetUniformLocation(shader_ID, name);
         glUniformMatrix4fv(mat_ID, 1, GL_FALSE, mat);
     }
+
 public:
     void info(){
-        std::cout << "vs path: " << vshader_path << std::endl;
-        std::cout << "fs path: " << fshader_path << std::endl;
-        std::cout << "vs ID: " << vshader_ID << std::endl;
-        std::cout << "fs ID: " << fshader_ID << std::endl;
-        std::cout << "s  ID: " << shader_ID  << std::endl;
+        std::cout << "Shader info: " << std::endl;
+        std::cout << "    vs path: " << vshader_path << std::endl;
+        std::cout << "    fs path: " << fshader_path << std::endl;
+        std::cout << "    vertex shader ID(" << vshader_ID << ")" << std::endl;
+        std::cout << "    fragment shader ID(" << fshader_ID << ")" << std::endl;
+        std::cout << "    shader ID(" << shader_ID << ")." << std::endl;
     };
 };
 

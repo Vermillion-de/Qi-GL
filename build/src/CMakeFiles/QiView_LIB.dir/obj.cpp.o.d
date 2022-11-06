@@ -323,10 +323,11 @@ src/CMakeFiles/QiView_LIB.dir/obj.cpp.o: \
  /usr/include/glm/detail/type_half.hpp \
  /usr/include/glm/detail/type_half.inl /usr/include/glm/integer.hpp \
  /usr/include/glm/detail/func_integer.inl \
+ /home/qi/Desktop/Qi-GL/src/shader.h /usr/include/string.h \
+ /usr/include/strings.h /home/qi/Desktop/Qi-GL/src/texture.h \
  /home/qi/Desktop/Qi-GL/src/stb_image.h /usr/include/c++/11/stdlib.h \
- /usr/include/string.h /usr/include/strings.h /usr/include/c++/11/math.h \
+ /usr/include/c++/11/math.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
- /home/qi/Desktop/Qi-GL/src/shader.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
