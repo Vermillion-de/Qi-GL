@@ -69,7 +69,13 @@
         "bitset": "cpp",
         "condition_variable": "cpp",
         "shared_mutex": "cpp",
-        "glad.h": "c"
+        "glad.h": "c",
+        "stdlib.h": "c",
+        "sparse": "cpp",
+        "forward_list": "cpp",
+        "sparseqr": "cpp",
+        "core": "cpp"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Enabled"
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.errorSquiggles": "Disabled"
 }

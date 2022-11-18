@@ -8,10 +8,9 @@
 #include <sstream>
 #include <iostream>
 
-#include "glad/glad.h"
+#include "glad.h"
 #include <GL/gl.h>
 #include <glm/glm.hpp>
-
 
 #include "shader.h"
 #include "texture.h"
@@ -50,10 +49,13 @@ public:     // elementary data for render
     void bind();
     unsigned int vao_ID, vbo_ID;
     unsigned int ebo_ID;
-    void info();
+    std::string info();
 public:     // basic transformation
     float scale = 1;
     glm::vec3 delta{0,0,0};
     void scale_by(double r_){ scale = r_*scale; } // setting for transforms
     void move(float x, float y, float z){ delta += glm::vec3{x, y, z};}
+
+public: 
+    bool skeletal = false;
 };

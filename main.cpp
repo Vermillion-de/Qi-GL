@@ -11,25 +11,37 @@ int main(int argc, char **argv){
         {"object", "../data/spot.obj"}, 
         {"centerlize", "true"},
         {"texture" , "../data/cow.png"},
-        {"vshader", "/home/qi/Desktop/Qi-GL/src/shaders/vshader.vs"},
-        {"fshader", "/home/qi/Desktop/Qi-GL/src/shaders/fshader.fs"}
+        {"vshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/vshader.vs"},
+        {"fshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/fshader.fs"}
     };
 
     std::map<std::string, std::string> config_orge{
         {"object", "../data/orge/bs_angry.obj"}, 
         {"centerlize", "true"},
         {"texture" , "../data/orge/diffuse.png"},
-        {"vshader", "/home/qi/Desktop/Qi-GL/src/shaders/vshader.vs"},
-        {"fshader", "/home/qi/Desktop/Qi-GL/src/shaders/fshader.fs"}
+        {"vshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/vshader.vs"},
+        {"fshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/fshader.fs"}
     };
 
+    std::map<std::string, std::string> config_minisurface{
+        {"object", "../data/minisurface/Balls.obj"}, 
+        {"centerlize", "true"},
+        {"texture" , "../data/minisurface/test.png"},
+        {"vshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/vshader.vs"},
+        {"fshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/fshader.fs"}
+    };
+
+    std::map<std::string, std::string> config_bunny{
+        {"object", "../data/minisurface/Bunny_head.obj"}, 
+        {"centerlize", "true"},
+        {"texture" , "../data/minisurface/test.png"},
+        {"vshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/vshader.vs"},
+        {"fshader", "/home/qi/Desktop/Qi-GL/src/resources/shaders/fshader.fs"}
+    };
+
+
     View a;
-    a.load(config_orge);
-    // a.load("../data/lucy.obj", true);
-    // a.load("../data/orge/bs_angry.obj",true);
-    // a.load("../data/orge/bs_angry.obj","../data/orge/diffuse.png",true);
-    // a.load("../data/orge/bs_angry.obj","../data/orge/diffuse.png","/home/qi/Desktop/Qi-GL/src/shaders/vshader.vs","/home/qi/Desktop/Qi-GL/src/shaders/fshader.fs", true);
-    // a.load("../data/spot.obj","../data/cow.png","/home/qi/Desktop/Qi-GL/src/shaders/vshader.vs","/home/qi/Desktop/Qi-GL/src/shaders/fshader.fs", true);
+    a.load(config_minisurface);
     a.show(argc, argv);
     return 0;
 }

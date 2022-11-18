@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glad/glad.h"
+#include <glad.h>
 #include <GL/gl.h>
 
 #include <string.h>
@@ -17,7 +17,6 @@ public:
     ~Shader(){};
 
 public: 
-    bool used=true;
     unsigned int shader_ID;
     unsigned int vshader_ID;
     unsigned int fshader_ID;    
@@ -25,8 +24,12 @@ public:
     std::string fshader_path;
 public:
     void set_path(std::string vs_path, std::string fs_path){ vshader_path = vs_path; fshader_path = fs_path; }
-    void activate(){ used = true; }
-    bool is_used(){return used;}
+    bool is_setted(){
+        if(vshader_path != "" && fshader_path != "") 
+            return true;
+        else 
+            return false;
+    }
     void load(){
         // read source from file
         std::ifstream vshader_file(vshader_path);
@@ -76,6 +79,11 @@ public:
     };
 public:
 
+    void set_1i(const char* name, int x){
+        int i_ID = glGetUniformLocation(shader_ID, name);
+        glUniform1i(i_ID, x); 
+    };
+
     void set_1f(const char* name, float v){
         int v_ID = glGetUniformLocation(shader_ID, name);
         glUniform1f(v_ID, v); 
@@ -92,13 +100,14 @@ public:
     }
 
 public:
-    void info(){
-        std::cout << "Shader info: " << std::endl;
-        std::cout << "    vs path: " << vshader_path << std::endl;
-        std::cout << "    fs path: " << fshader_path << std::endl;
-        std::cout << "    vertex shader ID(" << vshader_ID << ")" << std::endl;
-        std::cout << "    fragment shader ID(" << fshader_ID << ")" << std::endl;
-        std::cout << "    shader ID(" << shader_ID << ")." << std::endl;
+    std::string info(){
+        std::string ret;
+        // ret += "\tvshader path: " + vshader_path + "\n";
+        // ret += "\tfshader path: " + fshader_path + "\n";
+        ret += "\tvshader ID(" + std::to_string(vshader_ID) + ")";
+        ret += "\tfshader ID(" + std::to_string(fshader_ID) + ")\n";
+        ret += "\tshader ID(" + std::to_string(shader_ID) + ").\n";
+        return ret;
     };
 };
 

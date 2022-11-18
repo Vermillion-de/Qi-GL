@@ -1,5 +1,8 @@
 #include "view.h"
-#include "misc.h"
+#include "minisurface.cpp"
+#include "texture_gen.cpp"
+#include "normal_gen.cpp"
+
 
 void View::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
 #ifdef DEV
@@ -123,8 +126,8 @@ void View::render(){
 
     data.render();
 
-    if(show_cube)  drawCube(1);
-    if(show_axis)  drawAxis(1);
+    if(show_cube)  {}//drawCube(1);
+    if(show_axis)  {}//drawAxis(1);
 }
 
 void View::glfw_init(){
@@ -149,87 +152,135 @@ void View::imgui_init(){
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init();
-    io.Fonts->AddFontFromFileTTF("/home/qi/Desktop/Qi-GL/src/imgui/DroidSans.ttf", 24.0f);
+    io.Fonts->AddFontFromFileTTF("/home/qi/Desktop/Qi-GL/src/deps/imgui/DroidSans.ttf", 24.0f);
 }
 
 void View::imgui_render(){
-    ImGui_ImplOpenGL3_NewFrame();
+   ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
+    // idea for showing
+    // window1: all
+    // window2: object: texture, shader, info.
+
     static bool show_window_settings = false;
-    static bool show_render_settings = false;
-    static bool show_algorithms = false;
+    static bool show_object_settings = true;
+    static bool show_algorithms = true;
     
-    static bool use_normal = false;
-    static bool use_texture = false;
-    static bool use_light = false;
-
-    static bool use_orth = true;
-    static bool use_perp = false;
-
-
     ImGui::Begin("Settings");
     ImGui::Text("Frame Rate: %.2f ms/frame (%.1f Hz)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
     
     ImGui::Checkbox("Window Settings", &show_window_settings);
-    ImGui::Checkbox("Algorithms", &show_algorithms);
-
-    ImGui::ColorEdit3("Background Color", (float*)&clear_color);
-
-    ImGui::Checkbox("Render Settings", &show_render_settings);
-    
-    if(ImGui::Checkbox("Use Orth", &use_orth)) use_perp = !use_orth; 
     ImGui::SameLine();
-    if(ImGui::Checkbox("Use Perp", &use_perp)) use_orth = !use_perp; 
-    
-    ImGui::Checkbox("Use Normal", &use_normal);
-    ImGui::Checkbox("Use Texture", &use_texture);
-    ImGui::Checkbox("Use Light", &use_light);
+    ImGui::Checkbox("Object Settings", &show_object_settings);
+    ImGui::ColorEdit3("Background ", (float*)&clear_color);
     ImGui::End();
+
+
+    static bool render_light = false;
+    static bool use_orth = true;
+    static bool use_perp = false;
 
     if (show_window_settings)  // general settings
     {
         ImGui::Begin("Window Settings", &show_window_settings);
-
-        ImGui::End();
-    }
-    
-    if(show_render_settings)
-    {
-        ImGui::Begin("Rendering Settings", &show_render_settings);
         
-        if(ImGui::Button("Reload Shaders")) {data.shader.load();}
+        if(ImGui::Checkbox("Use Orth", &use_orth)) use_perp = !use_orth; 
         ImGui::SameLine();
-        if(ImGui::Button("Reload Texture")) {data.texture.load();}
+        if(ImGui::Checkbox("Use Perp", &use_perp)) use_orth = !use_perp; 
+
+        ImGui::Checkbox("Light(TODO)", &render_light);
 
         ImGui::Checkbox("Show United Cube", &show_cube);
         ImGui::SameLine();
         ImGui::Checkbox("Show Axis", &show_axis);
         
         ImGui::SliderFloat("Radis of Camera", &r, 0.1,5);
-        
-        ImGui::End();
-    }
-
-    if (show_algorithms)
-    {
-        ImGui::Begin("Algorithms", &show_algorithms);
-        if (ImGui::Button("Marching it!"))
-        {
-            std::cout << "Marching!" << std::endl;
-        }
-        
 
         ImGui::End();
     }
     
 
+    static bool render_normal = false;
+    static bool render_texture = false;
 
+    static bool render_triangles = false;
+
+    if(show_object_settings)
+    {
+        ImGui::Begin("Object Settings", &show_object_settings);
+
+
+        ImGui::Text(data.info().c_str());
+        
+        ImGui::Checkbox("Skeletal", &data.skeletal);
+        ImGui::SameLine();
+        ImGui::Checkbox("Normal", &render_normal);
+        ImGui::SameLine();
+        if(ImGui::Checkbox("Texture", &render_texture)){
+            data.shader.set_1i("use_texture",render_texture);
+        }
+
+        
+        if (ImGui::Button("Generate Texture f&v"))
+        {
+            data.vt = texture_gen(data.v, data.f);
+            data.ft = data.f;
+            data.bind();
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("Generate Normal f&v"))
+        {
+            data.vn = normal_gen(data.v, data.f);
+            data.fn = data.f;
+            data.bind();
+        }
+        
+        if(ImGui::Button("Reload Verteces")) {
+            data.bind();
+        }
+
+
+        ImGui::Text(data.shader.info().c_str());
+        if(ImGui::Button("Reload Shaders")) {data.shader.load();}
+
+        ImGui::Text(data.texture.info().c_str());
+        if(ImGui::Button("Reload Texture")) {data.texture.load();}
+        
+
+            // data.shader.set_bool("use_texture", render_texture);
+        // ImGui::Checkbox("Algorithms", &show_algorithms);
+    //     ImGui::End();
+    // }
+    // if (show_algorithms)
+    // {
+    //     ImGui::Begin("Algorithms", &show_algorithms);
+
+        
+        
+        if (ImGui::Button("Play Minisurface"))
+        {
+            minisurface(data.v, data.f);
+            data.bind();
+        }
+        
+        ImGui::SameLine();
+
+        if (ImGui::Button("ASAP"))
+        {
+            std::cout << "ASAP!" << std::endl;
+        }
+
+        ImGui::End();
+    }
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+
 
 void View::imgui_end(){ // Cleanup
     ImGui_ImplOpenGL3_Shutdown();

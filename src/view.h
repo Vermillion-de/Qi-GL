@@ -6,12 +6,12 @@
 #include <map>
 #include <math.h>
 
-#include "glad/glad.h"
+#include <glad.h>
 #include <GLFW/glfw3.h>
 #include <GL/glu.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "./imgui/imgui_glfw.h"
+#include <imgui_glfw.h>
 #include "object.h"
 
 class View
@@ -27,7 +27,7 @@ public:     // static things for callbacks...
 
 public: // window situation
     GLFWwindow* window=NULL;   
-    int windowWidth=1200, windowHeight=1200;   
+    int windowWidth=1800, windowHeight=1500;   
     // mouse condition last time
     std::pair<glm::ivec2, bool> mouseLeft{{0,0},false};
     std::pair<glm::ivec2, bool> mouseMid{{0,0},false};
@@ -42,7 +42,7 @@ public: // window situation
 
 public: //glfw and ImGui settings
     void glfw_init();
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.00f, 1.00f);
     void imgui_init();
     void imgui_render(); 
     void imgui_end(); 
@@ -51,8 +51,8 @@ public:     // camera, sence things
     int theta = 0, phi = 135;
     float dx=3, dy=3, dz=3;     // for orth view size
     
-    bool show_cube = true;
-    bool show_axis = true;
+    bool show_cube = false;
+    bool show_axis = false;
 private:    // renderred data
     Object data;
 public:     // react of this functions

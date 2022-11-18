@@ -7,23 +7,18 @@ void Object::set_object(std::string object_path_, bool centerlize_=true) {
 }
 
 void Object::set_texture(std::string texture_path_) { 
-    texture.activate();
     texture.set(texture_path_);
 }
 
 void Object::set_shader(std::string vshader_path_, std::string fshader_path_) {
-    shader.activate(); 
     shader.set_path(vshader_path_, fshader_path_);
 };
 
 void Object::load(){
     load_object();
     bind(); 
-    if (texture.is_used())  texture.load();
-    if (shader.is_used())   shader.load();
-#ifdef DEV
-    info();
-#endif
+    if (texture.is_setted())  texture.load();
+    if (shader.is_setted())   shader.load();
 }
 
 void Object::load_object(){
@@ -58,10 +53,12 @@ void Object::load_object(){
             if(f1.size() >= 2) ft.push_back({atoi(f1[1].c_str()),atoi(f2[1].c_str()),atoi(f3[1].c_str())});
             if(f1.size() >= 3) fn.push_back({atoi(f1[2].c_str()),atoi(f2[2].c_str()),atoi(f3[2].c_str())});
         }
-        else    std::cout << "Warning: load file" << object_path << " , meet unknow format! Please Update this..." << std::endl;
+        else if(split_s[0] == "#") { }
+        else if(split_s[0] == "g") { }
+        else if(split_s[0] == "usemtl") {}
+        else   {std::cout << "Warning: load file" << object_path << " , meet unknow format! Please Update this...(" << line  << ")."<< std::endl;}
     }
     objectfile.close();
-    
     // make the index begin with zero.
     std::function<void(std::vector<glm::ivec3>&)> begin_zero = [](std::vector<glm::ivec3>& f){
         int min = 10;
@@ -92,18 +89,51 @@ void Object::load_object(){
 
 void Object::bind(){   // need refine into elementary
 
-    float vbo[3*(3+2)*f.size()];
+    // std::vector<float> vbo(3*(3+2)*f.size(),0);
+    float vbo[3*(3+2+3)*f.size()];
+
 
     for (int i = 0; i < f.size(); i++)
-    {        
-        glm::vec3 va = v[f[i].x]; glm::vec2 ta = vt[ft[i].x];
-        glm::vec3 vb = v[f[i].y]; glm::vec2 tb = vt[ft[i].y];
-        glm::vec3 vc = v[f[i].z]; glm::vec2 tc = vt[ft[i].z]; 
-        vbo[i*3*(3+2)+ 0+0]=va.x, vbo[i*3*(3+2)+ 0+1]=va.y, vbo[i*3*(3+2)+ 0+2]=va.z; vbo[i*3*(3+2)+ 0+3]=ta.x; vbo[i*3*(3+2)+ 0+4]=ta.y; 
-        vbo[i*3*(3+2)+ 5+0]=vb.x, vbo[i*3*(3+2)+ 5+1]=vb.y, vbo[i*3*(3+2)+ 5+2]=vb.z; vbo[i*3*(3+2)+ 5+3]=tb.x; vbo[i*3*(3+2)+ 5+4]=tb.y; 
-        vbo[i*3*(3+2)+10+0]=vc.x, vbo[i*3*(3+2)+10+1]=vc.y, vbo[i*3*(3+2)+10+2]=vc.z; vbo[i*3*(3+2)+10+3]=tc.x; vbo[i*3*(3+2)+10+4]=tc.y; 
+    {
+        glm::vec3 va = v[f[i].x]; 
+        glm::vec3 vb = v[f[i].y]; 
+        glm::vec3 vc = v[f[i].z]; 
+        vbo[i*3*(3+2+3)+ 0+0]=va.x, vbo[i*3*(3+2+3)+ 0+1]=va.y, vbo[i*3*(3+2+3)+ 0+2]=va.z; 
+        vbo[i*3*(3+2+3)+ 8+0]=vb.x, vbo[i*3*(3+2+3)+ 8+1]=vb.y, vbo[i*3*(3+2+3)+ 8+2]=vb.z; 
+        vbo[i*3*(3+2+3)+16+0]=vc.x, vbo[i*3*(3+2+3)+16+1]=vc.y, vbo[i*3*(3+2+3)+16+2]=vc.z; 
+    }
+    
+    if( texture.is_setted() && vt.size() != 0 ) {
+        for (int i = 0; i < f.size(); i++)
+        {        
+            glm::vec2 ta = vt[ft[i].x];
+            glm::vec2 tb = vt[ft[i].y];
+            glm::vec2 tc = vt[ft[i].z]; 
+            vbo[i*3*(3+2+3)+ 0+3]=ta.x; vbo[i*3*(3+2+3)+ 0+4]=ta.y; 
+            vbo[i*3*(3+2+3)+ 8+3]=tb.x; vbo[i*3*(3+2+3)+ 8+4]=tb.y; 
+            vbo[i*3*(3+2+3)+16+3]=tc.x; vbo[i*3*(3+2+3)+16+4]=tc.y; 
+        }
+    }
+    else{
+        for (int i = 0; i < f.size(); i++)
+        {        
+            vbo[i*3*(3+2+3)+ 0+3]=0; vbo[i*3*(3+2+3)+ 0+4]=0; 
+            vbo[i*3*(3+2+3)+ 8+3]=0; vbo[i*3*(3+2+3)+ 8+4]=0; 
+            vbo[i*3*(3+2+3)+16+3]=0; vbo[i*3*(3+2+3)+16+4]=0; 
+        }
     }
 
+    if( texture.is_setted() && vn.size() != 0 )
+    for (int i = 0; i < f.size(); i++)
+    {        
+        glm::vec2 ta = vt[ft[i].x];
+        glm::vec2 tb = vt[ft[i].y];
+        glm::vec2 tc = vt[ft[i].z]; 
+        vbo[i*3*(3+2+3)+ 0+3]=ta.x; vbo[i*3*(3+2+3)+ 0+4]=ta.y; 
+        vbo[i*3*(3+2+3)+ 8+3]=tb.x; vbo[i*3*(3+2+3)+ 8+4]=tb.y; 
+        vbo[i*3*(3+2+3)+16+3]=tc.x; vbo[i*3*(3+2+3)+16+4]=tc.y; 
+    }
+    std::cout << "Nothing ghere" << std::endl;
     glGenBuffers(1, &vbo_ID);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_ID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vbo), vbo, GL_STATIC_DRAW);
@@ -111,10 +141,10 @@ void Object::bind(){   // need refine into elementary
     glGenVertexArrays(1, &vao_ID);
     glBindVertexArray(vao_ID);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)(3*sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
     glEnableVertexAttribArray(1);
 };
 
@@ -124,30 +154,28 @@ void Object::render(){
     shader.set_1f("scale", scale);
     shader.set_3f("delta", delta.x, delta.y, delta.z);
 
-    if( texture.is_used() ) texture.use();
+    if( texture.is_setted() ) texture.use();
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo_ID);
     glBindVertexArray(vao_ID);
+    if(skeletal)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDrawArrays(GL_TRIANGLES, 0, 3*f.size());
 };
 
 
-void Object::info(){
-    std::function<void(int)> tab = [](int n){for(int i=0; i<n; i++) std::cout << " ";};
-    std::cout << "=== ===Load" << name << " from " << object_path << "=== ===" << std::endl; 
-    std::cout << "OBJect data   : " << std::endl; 
-    std::cout << "    v size : " << v.size() << std::endl;
-    std::cout << "    vt size: " << vt.size() << std::endl;
-    std::cout << "    vn size: " << vn.size() << std::endl;
-    std::cout << "    f size : " << f.size() << std::endl;
-    std::cout << "    ft size: " << ft.size() << std::endl;
-    std::cout << "    fn size: " << fn.size() << std::endl;
-    std::cout << "    center : " << "(" << center.x << "," << center.y << "," << center.z << ")." << std::endl;   
-    std::cout << "    max d  : " << max << std::endl;   
-    shader.info();
-    texture.info(); 
-  if(centerlize) {        
-    std::cout << "=== ===========(centeralized)=========== ===" << std::endl; }
-  else            
-    std::cout << "=== ==================================== ===" << std::endl; 
+std::string Object::info(){
+    std::string ret;
+    ret += "Object info: Name: " + name + "\t, From: " + object_path + "\n"; 
+    ret += "\t # Vertices("+std::to_string(v.size())   + "),\t # Faces(" + std::to_string(f.size())  + ").\t\n";
+    ret += "\t #tVertices("+std::to_string(vt.size())  + "),\t #tFaces(" + std::to_string(ft.size()) + ").\t\n";
+    ret += "\t #nVertices("+std::to_string(vn.size())  + "),\t #nFaces(" + std::to_string(fn.size()) + ").\t\n";
+    ret += "\t Center: (" + std::to_string(center.x) + "," + std::to_string(center.y) + "," + std::to_string(center.z) + ").\n";   
+    ret += "\tR: " + std::to_string(max) + "\n";   
+    // ret += shader.info();
+    // ret += texture.info(); 
+  if(centerlize) { ret += "(centeralized)\n"; }
+    return ret;
 }

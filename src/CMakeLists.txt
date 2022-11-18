@@ -1,29 +1,32 @@
 cmake_minimum_required(VERSION 3.0.0)
 
-add_library(QiView_LIB "view.h" "view.cpp" "object.h" "object.cpp") 
+## add depdences
+add_subdirectory("./deps/")
 
 ## add library OpenGL and GLU
 cmake_policy(SET CMP0072 OLD)
 find_package(OpenGL REQUIRED)
-message(STATUS "OpenGL lib at ${OPENGL_LIBRARY}")
-target_link_libraries(QiView_LIB OpenGL::GL OpenGL::GLU)
 
-## add library GLFW3
-find_package(glfw3 REQUIRED)
-message(STATUS "Found GLFW3 lib at ${GLFW_LIBRARY}")
-target_link_libraries(QiView_LIB glfw)
+## add library GLM
+include_directories(${GLM_INCLUDE_DIRS})
+link_directories(${GLM_LIBRARY_DIRS})
+add_definitions(${GLM_DEFINITIONS})
 
-## add library GLAD
-add_subdirectory("./glad")
-message(STATUS "Using GLAD in ./glad/")
+## add my algorithms
+add_subdirectory("./algorithms/")
+
+## make QiObj lib
+add_library(QiObj STATIC "object.h" "object.cpp" "texture.h" "shader.h")
+target_link_libraries(QiObj GLAD_LIB)
+target_link_libraries(QiObj OpenGL::GL OpenGL::GLU)
+target_link_libraries(QiObj STB_LIB)
+
+## make view things
+add_library(QiView_LIB STATIC "view.h" "view.cpp") 
 target_link_libraries(QiView_LIB GLAD_LIB)
-
-## add imgui
-add_subdirectory("./imgui")
+target_link_libraries(QiView_LIB QiObj)
+target_link_libraries(QiView_LIB OpenGL::GL OpenGL::GLU)
+target_link_libraries(QiView_LIB glfw)
 target_link_libraries(QiView_LIB ImGUI_GLFW_LIB)
-
-## add stb_image.h
-
-## add shaders
-
-set(QiView_INCLUDE "view.h" "obj.h")
+target_link_libraries(QiView_LIB ALG_LIB)
+target_include_directories(QiView_LIB PUBLIC "./")
