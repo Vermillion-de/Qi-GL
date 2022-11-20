@@ -133,7 +133,7 @@ void Object::bind(){   // need refine into elementary
         vbo[i*3*(3+2+3)+ 8+3]=tb.x; vbo[i*3*(3+2+3)+ 8+4]=tb.y; 
         vbo[i*3*(3+2+3)+16+3]=tc.x; vbo[i*3*(3+2+3)+16+4]=tc.y; 
     }
-    std::cout << "Nothing ghere" << std::endl;
+    // std::cout << "Nothing ghere" << std::endl;
     glGenBuffers(1, &vbo_ID);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_ID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vbo), vbo, GL_STATIC_DRAW);

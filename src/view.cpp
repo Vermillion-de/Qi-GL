@@ -1,7 +1,9 @@
 #include "view.h"
+#include "simulation.cpp"
 #include "minisurface.cpp"
 #include "texture_gen.cpp"
 #include "normal_gen.cpp"
+#include "asap.cpp"
 
 
 void View::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
@@ -271,8 +273,22 @@ void View::imgui_render(){
 
         if (ImGui::Button("ASAP"))
         {
-            std::cout << "ASAP!" << std::endl;
+            asap(data.v, data.f);
+            data.bind();
         }
+
+        if (ImGui::Button("Simulation Step"))
+        {
+            show_simulate = !show_simulate;   
+        }
+            ImGui::SameLine();
+        if (ImGui::Button("Restore"))
+        {
+            data = data_backup;
+        }
+
+        ImGui::DragFloat("K",&k, 1000, 100, 1000000);
+        ImGui::DragFloat("L0",&l0, 0.001, 0.00001, 1);
 
         ImGui::End();
     }
@@ -293,10 +309,20 @@ void View::show(int argc, char **argv){
     glfw_init();
     imgui_init();
     data.load();
+
+    data_backup = data;
+
     while (!glfwWindowShouldClose(window)){
         glfwPollEvents();
         this->moveMouseReact();
         this->reshapeWindowReact();
+        if (show_simulate)
+        {
+            simulate(data.v, data.f, l0, k);
+            data.bind();
+            std::system("sleep 0.01");
+        }
+        
         this->render();
         imgui_render();
         glfwSwapBuffers(window);

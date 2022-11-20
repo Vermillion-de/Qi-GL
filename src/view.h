@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -53,8 +54,14 @@ public:     // camera, sence things
     
     bool show_cube = false;
     bool show_axis = false;
+
+    bool show_simulate = false;
+    float l0 = 1;
+    float k = 100;
+
 private:    // renderred data
     Object data;
+    Object data_backup;
 public:     // react of this functions
     void load(std::map<std::string, std::string> config);
     void render();

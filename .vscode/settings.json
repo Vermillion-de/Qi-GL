@@ -74,7 +74,10 @@
         "sparse": "cpp",
         "forward_list": "cpp",
         "sparseqr": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "strstream": "cpp",
+        "codecvt": "cpp",
+        "valarray": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.errorSquiggles": "Disabled"

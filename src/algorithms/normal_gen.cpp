@@ -9,8 +9,9 @@
 
 #include <glm/glm.hpp>
 #include <glm/common.hpp>
-// #include <glm.hpp>
 #include <glm/vec3.hpp>
+
+#include "common.cpp"
 
 glm::vec3 cross(glm::vec3 a, glm::vec3 b)
 {

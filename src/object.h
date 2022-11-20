@@ -57,5 +57,5 @@ public:     // basic transformation
     void move(float x, float y, float z){ delta += glm::vec3{x, y, z};}
 
 public: 
-    bool skeletal = false;
+    bool skeletal = true;
 };
