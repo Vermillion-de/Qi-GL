@@ -40,7 +40,7 @@ public:
     }
 public:
     int add_obj(){
-        
+
     }
 
 public:
